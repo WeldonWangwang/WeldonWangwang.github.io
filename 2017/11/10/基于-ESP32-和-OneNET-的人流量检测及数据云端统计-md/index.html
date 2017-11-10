@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Wang Wangwang" />
+
+
+
+<meta name="description" content="TAG: esp32; onenet; wifi; mqtt; 流量检测   本工程源代码托管位置：https://github.com/WeldonWangwang/ESP32_Check_Pedestrian-flow   人流量监控在安保，商场，旅游等诸多行业具有重要作用，人流量数据不仅具有科学研究价值,还具有很强的实用价值。因此选择一种便捷，经济的监控手段很有必要。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/index.html">
+<meta property="og:site_name" content="WeldonWangwang">
+<meta property="og:description" content="TAG: esp32; onenet; wifi; mqtt; 流量检测   本工程源代码托管位置：https://github.com/WeldonWangwang/ESP32_Check_Pedestrian-flow   人流量监控在安保，商场，旅游等诸多行业具有重要作用，人流量数据不仅具有科学研究价值,还具有很强的实用价值。因此选择一种便捷，经济的监控手段很有必要。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/Jsd19Wo.png">
+<meta property="og:image" content="https://i.imgur.com/UOA8dm4.png">
+<meta property="og:image" content="https://i.imgur.com/B7u07Ks.png">
+<meta property="og:image" content="https://i.imgur.com/FxMLIj1.png">
+<meta property="og:image" content="https://i.imgur.com/zuGlXgn.png">
+<meta property="og:image" content="https://i.imgur.com/XIGPsDs.png">
+<meta property="og:image" content="https://i.imgur.com/iHAKOzi.png">
+<meta property="og:image" content="https://i.imgur.com/6qoYiRh.png">
+<meta property="og:image" content="https://i.imgur.com/q4D4Wn9.jpg">
+<meta property="og:image" content="https://i.imgur.com/7Lsdu3L.png">
+<meta property="og:image" content="https://i.imgur.com/aJdu10E.png">
+<meta property="og:image" content="https://i.imgur.com/Nu4OMhF.png">
+<meta property="og:updated_time" content="2017-11-10T07:13:37.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md">
+<meta name="twitter:description" content="TAG: esp32; onenet; wifi; mqtt; 流量检测   本工程源代码托管位置：https://github.com/WeldonWangwang/ESP32_Check_Pedestrian-flow   人流量监控在安保，商场，旅游等诸多行业具有重要作用，人流量数据不仅具有科学研究价值,还具有很强的实用价值。因此选择一种便捷，经济的监控手段很有必要。">
+<meta name="twitter:image" content="https://i.imgur.com/Jsd19Wo.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="WeldonWangwang" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md | WeldonWangwang</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Wang Wangwang</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:17621766966@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/WeldonWangwang" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/yu-shang-zui-yue-49?utm_source=wechat_session&utm_medium=social&from=singlemessage" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32-FTP/">ESP32 FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu-hexo/">ubuntu hexo</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">嵌入式软件开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Wang Wangwang</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Wang Wangwang</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:17621766966@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/WeldonWangwang" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/yu-shang-zui-yue-49?utm_source=wechat_session&utm_medium=social&from=singlemessage" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/" class="article-date">
+      <time datetime="2017-11-10T07:12:35.000Z" itemprop="datePublished">2017-11-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>TAG: esp32; onenet; wifi; mqtt; 流量检测  </p>
+<p>本工程源代码托管位置：<a href="https://github.com/WeldonWangwang/ESP32_Check_Pedestrian-flow" target="_blank" rel="external">https://github.com/WeldonWangwang/ESP32_Check_Pedestrian-flow</a>  </p>
+<p>人流量监控在安保，商场，旅游等诸多行业具有重要作用，人流量数据不仅具有科学研究价值,还具有很强的实用价值。因此选择一种便捷，经济的监控手段很有必要。<br><a id="more"></a><br>ESP32 是乐鑫信息科技设计的集成 2.4 GHz Wi-Fi 和蓝牙双模的单芯片方案,采用台积电(TSMC)超低功耗的 40 纳米工艺,拥有<br>最佳的功耗性能、射频性能、稳定性、通用性和可靠性,适用于各种应用和不同功耗需求。  </p>
+</blockquote>
+<p><img src="https://i.imgur.com/Jsd19Wo.png" alt=""></p>
+<p>我们利用 ESP32  Wi-Fi 的混杂接收模式，接受全部可以获得空中包，然后对其解析，筛选得到周围无线设备发送的 Probe Request 帧，通过对 Probe Request 帧的来源和强度进行分析和汇总，从而计算出周围一定区域内的设备设备使用量（人流量）。  </p>
+<p>在得到基本的人流量数据后，ESP32 通过 MQTT 将数据发送至 OneNET 物联网平台，得到最终的人流量变化曲线图，以从云端方便的进行数据处理和监控。</p>
+<h2 id="1-硬件准备"><a href="#1-硬件准备" class="headerlink" title="1. 硬件准备"></a>1. 硬件准备</h2><ul>
+<li><p>ESP32: 可以参考乐鑫的官方资料册，<a href="http://esp-idf.readthedocs.io/en/latest/hw-reference/modules-and-boards.html#esp32-core-board-v2-esp32-devkitc" target="_blank" rel="external">ESP32-DevKitC 开发板</a> 或 <a href="http://esp-idf.readthedocs.io/en/latest/hw-reference/modules-and-boards.html#esp-wrover-kit" target="_blank" rel="external">ESP-WROVER-KIT 开发板</a></p>
+</li>
+<li><p>路由器/ Wi-Fi 热点：可以连接外网  </p>
+</li>
+</ul>
+<h2 id="2-快速开始"><a href="#2-快速开始" class="headerlink" title="2.  快速开始"></a>2.  快速开始</h2><h3 id="2-1-ESP32-Wi-Fi-联网配置"><a href="#2-1-ESP32-Wi-Fi-联网配置" class="headerlink" title="2.1 ESP32 Wi-Fi 联网配置"></a>2.1 ESP32 Wi-Fi 联网配置</h3><p>运行 <code>make menuconfig</code> -&gt; Demo Configuration -&gt; 输入热点的 Wi-Fi SSID &amp; Wi-Fi Password  </p>
+<p><img src="https://i.imgur.com/UOA8dm4.png" alt="">  </p>
+<h3 id="2-2-OneNET-创建设备及应用"><a href="#2-2-OneNET-创建设备及应用" class="headerlink" title="2.2 OneNET 创建设备及应用"></a>2.2 OneNET 创建设备及应用</h3><ul>
+<li>产品注册<br>登录 OneNET 官网，进行设备注册。点击“开发者中心”，进入相应的“产品列表”管理页面，在这里您可以新建并管理您的产品；<br>点击右上角的 “创建产品”，在弹出页面中按照提示填写产品的基本信息，进行产品创建；  </li>
+</ul>
+<p><img src="https://i.imgur.com/B7u07Ks.png" alt=""></p>
+<p>操作系统选择“其他 -&gt; freertos”，网络运营商选择“其他”，联网方式选择“Wi-Fi”.</p>
+<p>  在创建过程最后一步，系统会提示让您选择“设备接入方   式”和“设备接入协议”， 协议选择“公开协议 -&gt; MQTT”，点击“确定”按钮，完成产品创建。   </p>
+<p><img src="https://i.imgur.com/FxMLIj1.png" alt=""> </p>
+<ul>
+<li><p>创建设备  </p>
+<p>在设备管理页面选择“添加设备”， 输入设备名称和鉴权信息，鉴权信息可以自己定义，相当于通讯双方都知道的“暗号”。  </p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/zuGlXgn.png" alt=""></p>
+<p> 接入设备后可以获得设备的 ID 等设备信息。</p>
+<ul>
+<li><p>创建应用   </p>
+<p>设备的应用可以更好的对设备上传的数据进行统计和展示，点击创建应用，选择独立应用，选择产品及名称，点击创建。  </p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/XIGPsDs.png" alt=""></p>
+<p>因为我们需要展示人流量的变化数据，因此在这里选择“折线图”，然后对坐标轴进行设置，得到一个大体的应用框架，在这时还不能对数据流进行选择，因为我们还没有开始进行数据上报，点击保存，则可以在“应用管理中看到刚刚创建的应用”。  </p>
+<p><img src="https://i.imgur.com/iHAKOzi.png" alt=""></p>
+<h3 id="2-3-程序中设备信息填充"><a href="#2-3-程序中设备信息填充" class="headerlink" title="2.3 程序中设备信息填充"></a>2.3 程序中设备信息填充</h3><p> 在程序中的 <code>main/include/onenet.h</code> 中将刚刚在平台上创建得到的“设备 ID”，“产品 ID”，“鉴权信息” 进行填充：  </p>
+<pre><code>#define ONENET_DEVICE_ID    &quot;*****&quot;         // mqtt client id
+#define ONENET_PROJECT_ID   &quot;*****&quot;         // mqtt username
+#define ONENET_AUTH_INFO    &quot;*****&quot;         // mqtt password
+</code></pre><h3 id="2-4-编译运行"><a href="#2-4-编译运行" class="headerlink" title="2.4 编译运行"></a>2.4 编译运行</h3><ul>
+<li>返回顶层目录  </li>
+<li><p>执行 <code>make</code> 指令, 编译 demo, 命令如下：  </p>
+<pre><code>make flash monitor
+</code></pre><p>编译成功后, 开始进行烧写。 </p>
+<p>运行后打印输出：    </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Connecting to server 183.230.40.39:6002,29207</div><div class="line">Connected!</div><div class="line">Connected to server 183.230.40.39:6002</div><div class="line">Sending MQTT CONNECT message, type: 1, id: 0000</div><div class="line">Reading MQTT CONNECT response message</div><div class="line">Connected</div><div class="line">mqtt_sending_task</div><div class="line">Queuing publish, length: 27, queue size(27/4096)</div><div class="line"></div><div class="line">Sending...27 bytes</div><div class="line">mqtt_start_receive_schedule</div><div class="line"></div><div class="line">Current device num = 1</div><div class="line">MAC: 0x**.0x**.0x**.0x**.0x**.0x**, The time is: 7200, The rssi = -73</div><div class="line"></div><div class="line">Current device num = 2</div><div class="line">MAC: 0x**.0x**.0x**.0x**.0x**.0x**, The time is: 8880, The rssi = -59  </div><div class="line">...</div></pre></td></tr></table></figure>
+<p>可以看到，ESP32 成功连接到 MQTT，并且已经开始抓包，并且打印得到无线设备的 MAC 地址和 信号强度。  </p>
+<p>我们在程序中设置的是每隔十分钟向云端上报依次信息，所以每隔十分钟会调用一次 <code>mqtt publish</code>.  </p>
+</li>
+</ul>
+<h2 id="3-OneNET-控制台查看人流量数据"><a href="#3-OneNET-控制台查看人流量数据" class="headerlink" title="3. OneNET 控制台查看人流量数据"></a>3. OneNET 控制台查看人流量数据</h2><p>打开 OneNET 控制台，可以看到设备已经在线，点击设备对应的应用，选择数据流“Pedestrian-flow”，则可以看到应用中数据流的变化曲线图。  </p>
+<p><img src="https://i.imgur.com/6qoYiRh.png" alt=""></p>
+<h2 id="4-ESP32-抓包详解"><a href="#4-ESP32-抓包详解" class="headerlink" title="4. ESP32 抓包详解"></a>4. ESP32 抓包详解</h2><h3 id="4-1-Probe-Request-包分析"><a href="#4-1-Probe-Request-包分析" class="headerlink" title="4.1 Probe Request 包分析"></a>4.1 Probe Request 包分析</h3><p>Probe Request 包属于 802.11 标准，其基本的帧结构如下：   </p>
+<p><img src="https://i.imgur.com/q4D4Wn9.jpg" alt=""> </p>
+<p>通过 wireshark 抓包获得 Probe Request 包如下：<br><em>注： ubuntu 下 wireshark 抓 802.11教程可参考<a href="http://ju.outofmemory.cn/entry/204965" target="_blank" rel="external">http://ju.outofmemory.cn/entry/204965</a></em></p>
+<p><img src="https://i.imgur.com/7Lsdu3L.png" alt=""></p>
+<p>可以从包中看到该帧的 “Subtype : 4”, 还有信号强度和 MAC 地址等信息。</p>
+<h3 id="4-2-对应程序"><a href="#4-2-对应程序" class="headerlink" title="4.2 对应程序"></a>4.2 对应程序</h3><ul>
+<li><p>在程序中首先对抓到的包包头进行判定，当包头为 Probe Request 包时进行下一步判定，否则直接丢弃。  </p>
+<pre><code>if (sniffer_payload-&gt;header[0] != 0x40) {
+    return;
+}
+</code></pre></li>
+<li><p>得到真正的 Probe Request 包后，首先对来源设备的 MAC 地址进行分析，过滤掉一些不需要计算的设备（固定无线装置等）。 </p>
+</li>
+<li><pre><code>for (int i = 0; i &lt; 32; ++i) {
+    if (!memcmp(sniffer_payload-&gt;source_mac, esp_module_mac[i], 3)) {
+        return;
+    }
+}
+</code></pre><p>在程序中我们过滤掉其他 ESP32 芯片的 MAC 地址。  </p>
+</li>
+<li><p>重复设备过滤<br>在抓到的包中，有相当一部分是来自于同一设备的 Probe Request 包，因此需要剔除。  </p>
+<pre><code>for (station_info = g_station_list-&gt;next; station_info; station_info = station_info-&gt;next) {
+    if (!memcmp(station_info-&gt;bssid, sniffer_payload-&gt;source_mac, sizeof(station_info-&gt;bssid))) {
+        return;
+    }
+}  
+</code></pre></li>
+<li><p>我们创建一个存储每一个设备信息的链表，在获得一个有效设备信息后，将该设备信息加入设备链表中。  </p>
+</li>
+<li><pre><code>if (!station_info) {
+    station_info = malloc(sizeof(station_info_t));
+    station_info-&gt;next = g_station_list-&gt;next;
+    g_station_list-&gt;next = station_info;
+}
+</code></pre></li>
+</ul>
+<h2 id="5-人流量计算"><a href="#5-人流量计算" class="headerlink" title="5. 人流量计算"></a>5. 人流量计算</h2><p>首先需要确定计算人流量的区域范围，我们利用获得的设备信号强度进行划分，从而根据选择不同的信号强度来确定需要监控人流量的区域范围。  </p>
+<p>但是 RSSI 并不是协议中的字段，802.11协议中没有给出具体产生RSSI的过程或者说是算法吧。协议中说RSSI值范围0~255，RSSI值随PHY Preamble部分的能量单调递增。即在接收端网卡测量到RSSI的值以后，我们可以从这个程序接口获得RSSI的值。因此在不同的实地环境下，要根据实际测定来确定不同接受距离对应的实际 RSSI 值。</p>
+<p>由于无线设备的普及，几乎人手都会持有一具有特定 MAC 地址的无线设备，而无线设备又会发送 Probe Request 包，因此只要得到空中的 Probe Request 包就可以计算出该区域的流动人数。   </p>
+<p>人流量是指在一定区域内单位时间的人流总数，因此我们以 10 分钟为侦测区间，通过对在 10 分钟内的所有人数进行计算来获得人流量。<br>在 10 分钟后将链表清空，开始下一阶段的监控。整个统计流程如下：<br><img src="https://i.imgur.com/aJdu10E.png" alt="">  </p>
+<h2 id="6-ESP32-gt-OneNET-间-MQTT-通信"><a href="#6-ESP32-gt-OneNET-间-MQTT-通信" class="headerlink" title="6. ESP32 -&gt; OneNET 间 MQTT 通信"></a>6. ESP32 -&gt; OneNET 间 MQTT 通信</h2><h3 id="6-2-ESP32-开启-STA-模式"><a href="#6-2-ESP32-开启-STA-模式" class="headerlink" title="6.2 ESP32 开启 STA 模式"></a>6.2 ESP32 开启 STA 模式</h3><p>ESP32 在进行抓包的同时需要开启 STA 模式进行联网，联网流程如下：  </p>
+<p><img src="https://i.imgur.com/Nu4OMhF.png" alt=""></p>
+<h3 id="6-2-MQTT"><a href="#6-2-MQTT" class="headerlink" title="6.2 MQTT"></a>6.2 MQTT</h3><p>MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是 IBM 开发的一个即时通讯协议，有可能成为物联网的重要组成部分。该协议支持所有平台，几乎可以把所有联网物品和外部连接起来，被用来当做传感器和制动器（比如通过 Twitter 让房屋联网）的通信协议。<a href="https://baike.baidu.com/item/MQTT/3618851?fr=aladdin" target="_blank" rel="external">参考</a>    </p>
+<p>MQTT 协议是一个面向物联网应用的即时通信协议，使用 TCP/IP 提供网络连接，能够对负载内容实现消息屏蔽传输，开销小，可以有效降低网络流量，协议的特点和功能包括：</p>
+<ul>
+<li><p>长连接协议  </p>
+</li>
+<li><p>终端数据点上报，支持的数据点类型包括：</p>
+<ul>
+<li>整型（int）</li>
+<li>浮点数（float）</li>
+<li>字符串（string）</li>
+<li>JSON格式  </li>
+</ul>
+</li>
+<li><p>平台消息下发</p>
+</li>
+<li><p>基于 Topic 的订阅、发布以及消息推送，可以实现设备间的消息单播以及组播</p>
+</li>
+</ul>
+<p>ESP32 可以移植并很好的支持 MQTT 协议，设备端通过 pubish 即可讲数据发送到云端。  </p>
+<pre><code>val =  s_device_info_num / 10;
+char buf[128];
+memset(buf, 0, sizeof(buf));
+sprintf(&amp;buf[3], &quot;{\&quot;%s\&quot;:%d}&quot;, ONENET_DATA_STREAM, val);
+uint16_t len = strlen(&amp;buf[3]);
+buf[0] = data_type_simple_json_without_time;
+buf[1] = len &gt;&gt; 8;
+buf[2] = len &amp; 0xFF;
+mqtt_publish(client, &quot;$dp&quot;, buf, len + 3, 0, 0);
+</code></pre><h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a>7. 总结</h2><p>通过利用 ESP32 进行抓包可以在保证抓包质量的同时承担很多其他功能角色，来最大程度的利用 ESP32.并且 ESP32 也可以利用 MQTT 进行订阅相关 topic， 进而通过云端来控制 ESP32.  </p>
+<p>改进: 不同区域内的人流量大小会影响到 ESP32 接收到的信号强度发生变化，因此当使用信号强度来判定选择区域范围时会存在误差，此点需要改进。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Wang Wangwang</a></p>
+        <p><span>发布时间:</span>2017-11-10, 15:12:35</p>
+        <p><span>最后更新:</span>2017-11-10, 15:13:37</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/" title="基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md">http://WeldonWangwang.github.io/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/11/06/ESP32-实现-FTP-server/">
+                    ESP32 实现 FTP-server
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-硬件准备"><span class="toc-number">1.</span> <span class="toc-text">1. 硬件准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-快速开始"><span class="toc-number">2.</span> <span class="toc-text">2.  快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-ESP32-Wi-Fi-联网配置"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 ESP32 Wi-Fi 联网配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-OneNET-创建设备及应用"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 OneNET 创建设备及应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-程序中设备信息填充"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 程序中设备信息填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-编译运行"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 编译运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-OneNET-控制台查看人流量数据"><span class="toc-number">3.</span> <span class="toc-text">3. OneNET 控制台查看人流量数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-ESP32-抓包详解"><span class="toc-number">4.</span> <span class="toc-text">4. ESP32 抓包详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Probe-Request-包分析"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 Probe Request 包分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-对应程序"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 对应程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-人流量计算"><span class="toc-number">5.</span> <span class="toc-text">5. 人流量计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-ESP32-gt-OneNET-间-MQTT-通信"><span class="toc-number">6.</span> <span class="toc-text">6. ESP32 -> OneNET 间 MQTT 通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-ESP32-开启-STA-模式"><span class="toc-number">6.1.</span> <span class="toc-text">6.2 ESP32 开启 STA 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-MQTT"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 MQTT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-总结"><span class="toc-number">7.</span> <span class="toc-text">7. 总结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/11/06/ESP32-实现-FTP-server/" title="下一篇: ESP32 实现 FTP-server">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 Wang Wangwang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
