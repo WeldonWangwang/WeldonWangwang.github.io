@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="Espressif 嵌入式软件AE">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://WeldonWangwang.github.io/about/index.html">
+<meta name="description" content="select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lwip-select">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/lwip-select/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
-<meta property="og:description" content="Espressif 嵌入式软件AE">
+<meta property="og:description" content="select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-06T08:08:34.423Z">
+<meta property="og:updated_time" content="2018-01-11T12:32:59.127Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="Espressif 嵌入式软件AE">
+<meta name="twitter:title" content="lwip-select">
+<meta name="twitter:description" content="select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>about | WeldonWangwang</title>
+<title>lwip-select | WeldonWangwang</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -67,7 +67,7 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -261,11 +261,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-lwip-select" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/about/index.html" class="article-date">
-      <time datetime="2017-11-06T08:06:50.000Z" itemprop="datePublished">2017-11-06</time>
+      <a href="/2018/01/11/lwip-select/" class="article-date">
+      <time datetime="2018-01-11T12:30:27.000Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
 
@@ -280,7 +280,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      about
+      lwip-select
     </h1>
   
 
@@ -297,26 +297,75 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <style>
-    .article-meta { display: none; }
-    #container .article .article-title { padding-right: 0; }
-    .article-header {
-        padding: 0;
-        padding-top: 26px;
-        border-left: none;
-        text-align: center;
+        <p>select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。<br><a id="more"></a></p>
+<h1 id="select-函数及-FD-ZERO、FD-SET、FD-CLR、FD-ISSET"><a href="#select-函数及-FD-ZERO、FD-SET、FD-CLR、FD-ISSET" class="headerlink" title="select() 函数及 FD_ZERO、FD_SET、FD_CLR、FD_ISSET"></a>select() 函数及 FD_ZERO、FD_SET、FD_CLR、FD_ISSET</h1><h2 id="sleect"><a href="#sleect" class="headerlink" title="sleect()"></a>sleect()</h2><p>select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。</p>
+<p>确定一个或多个套接口的状态，如需要则等待。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/select.h&gt;</div><div class="line">int select( int nfds, fd_set FAR* readfds,　fd_set * writefds, fd_set * exceptfds,　const struct timeval * timeout);</div><div class="line">nfds：是一个整数值，是指集合中所有文件描述符的范围，即所有文件描述符的最大值加1，不能错！在Windows中这个参数的值无所谓，可以设置不正确。</div><div class="line">readfds：（可选）指针，指向一组等待可读性检查的套接口。</div><div class="line">writefds：（可选）指针，指向一组等待可写性检查的套接口。</div><div class="line">exceptfds：（可选）指针，指向一组等待错误检查的套接口。</div><div class="line">timeout：select()最多等待时间，对阻塞操作则为NULL。</div><div class="line">```  </div><div class="line"></div><div class="line">在socket.h头文件中共定义了四个宏来操作描述字集。FD_SETSIZE变量用于确定一个集合中最多有多少描述字（FD_SETSIZE缺省值为64，可在包含socket.h前用#define FD_SETSIZE来改变该值）。对于内部表示，fd_set被表示成一个套接口的队列，最后一个有效元素的后续元素为INVAL_SOCKET。宏为：  </div><div class="line">- FD_ZERO(fd_set *fdset);将指定的文件描述符集清空，在对文件描述符集合进行设置前，必须对其进行初始化，如果不清空，由于在系统分配内存空间后，通常并不作清空处理，所以结果是不可知的。  </div><div class="line">- FD_SET(fd_set *fdset);用于在文件描述符集合中增加一个新的文件描述符。  </div><div class="line">- FD_CLR(fd_set *fdset);用于在文件描述符集合中删除一个文件描述符。  </div><div class="line">- FD_ISSET(int fd,fd_set *fdset);用于测试指定的文件描述符是否在该集合中。</div><div class="line"></div><div class="line">返回值：  </div><div class="line">select()调用返回处于就绪状态并且已经包含在fd_set结构中的描述字总数；如果超时则返回0；否则的话，返回SOCKET_ERROR错误，应用程序可通过WSAGetLastError获取相应错误代码。  </div><div class="line">当返回为-1时，所有描述符集清0。  </div><div class="line">当返回为0时，表示超时。  </div><div class="line">当返回为正数时，表示已经准备好的描述符数。  </div><div class="line">select（）返回后，在3个描述符集里，依旧是1的位就是准备好的描述符。这也就是为什么，每次用select后都要用FD_ISSET的原因。</div></pre></td></tr></table></figure>
+<pre><code>socket   s;     
+.....     
+fd_set   set;     
+while(1)     
+{         
+      FD_ZERO(&amp;set);//将你的套节字集合清空     
+      FD_SET(s,   &amp;set);//加入你感兴趣的套节字到集合,这里是一个读数据的套节字s     
+      select(0,&amp;set,NULL,NULL,NULL);//检查套节字是否可读,     
+                                                        //很多情况下就是是否有数据(注意,只是说很多情况)    
+                                                        //这里select是否出错没有写     
+      if(FD_ISSET(s,   &amp;set)   //检查s是否在这个集合里面,     
+      {                                           //select将更新这个集合,把其中不可读的套节字去掉     
+                                                  //只保留符合条件的套节字在这个集合里面                           
+              recv(s,...);     
+      }     
+      //do   something   here     
+}  
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<p>static void tcp_recv_task(void *pvParameter)<br>{<br>    int32_t result = 0;<br>    int32_t index = 0;<br>    int32_t max_fd = 0;<br>    fd_set read_set;<br>    fd_set error_set;<br>    struct timeval timeout;</p>
+<pre><code>while (1) {
+
+    while (m_conn_param.conn_num == 0) {
+        vTaskDelay(1000 / portTICK_RATE_MS);
     }
-    .article-header:hover { border-left: none; }
-    .article-title { font-size: 1.6em }
-    .article-entry hr { margin: 0;}
-    .article-meta,
-    #container .article-info-post.article-info { display: none;}
-    #container .article .article-title { padding: 0; }
-</style>
+    mutex_lock(&amp;mutex_conn_param);
+    ESP_LOGI(TAG, &quot;conn num:%d, select on connected socket...&quot;, m_conn_param.conn_num);
+    FD_ZERO(&amp;read_set);
+    FD_ZERO(&amp;error_set);
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
+
+    for (index = 0; index &lt; MAX_CLIENT_NUMBER; index++) {
+        if (m_conn_param.sock_fd[index] &gt;= 0) {
+            FD_SET(m_conn_param.sock_fd[index], &amp;read_set);
+            FD_SET(m_conn_param.sock_fd[index], &amp;error_set);
+            max_fd = max(m_conn_param.sock_fd[index], max_fd);
+        }
+    }
+
+    result = select(max_fd + 1, &amp;read_set, NULL, &amp;error_set, &amp;timeout);
+
+    // lock before every possible modify
+
+    if (result == -1) {
+        ESP_LOGE(TAG, &quot;select error, return -1, errno:%d&quot;, errno);
+    } else if (result == 0) {
+        ESP_LOGI(TAG, &quot;select timeout&quot;);
+    } else if (result &gt; 0) {
+        for (index = 0; index &lt; MAX_CLIENT_NUMBER; ++index) {
+            if (FD_ISSET(m_conn_param.sock_fd[index], &amp;error_set)) { // keep-alive timeout or lose connect and so on
+                ESP_LOGE(TAG, &quot;error set found, socketfd:%d, errno:%d&quot;, m_conn_param.sock_fd[index], errno);
+                data_destroy(index);
+            } else if (FD_ISSET(m_conn_param.sock_fd[index], &amp;read_set)) {
+                handle_read_event(index);
+            }
+        }
+    } else {
+        ESP_LOGE(TAG, &quot;WTF&quot;);
+    }
+    mutex_unlock(&amp;mutex_conn_param);
+}
 
 
-          
-        <p>Espressif 嵌入式软件<br>AE</p>
+vTaskDelete(NULL);
+</code></pre><p>}<br>```</p>
 
       
     </div>
@@ -324,10 +373,65 @@
   </div>
   
     
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2018/01/11/lwip-select/">lwip-select</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Wang Wangwang</a></p>
+        <p><span>Created:</span>2018-01-11, 20:30:27</p>
+        <p><span>Updated:</span>2018-01-11, 20:32:59</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2018/01/11/lwip-select/" title="lwip-select">http://WeldonWangwang.github.io/2018/01/11/lwip-select/</a>
+            <span class="copy-path" data-clipboard-text="From http://WeldonWangwang.github.io/2018/01/11/lwip-select/　　By Wang Wangwang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
 
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/01/11/lwip-UDP/">
+                    lwip-UDP
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/01/11/lwip-socket/">
+                    lwip-socket
+                </a>
+            </div>
+        
+    </nav>
 
   
 </article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-函数及-FD-ZERO、FD-SET、FD-CLR、FD-ISSET"><span class="toc-number">1.</span> <span class="toc-text">select() 函数及 FD_ZERO、FD_SET、FD_CLR、FD_ISSET</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sleect"><span class="toc-number">1.1.</span> <span class="toc-text">sleect()</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
 
 
 
@@ -345,7 +449,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"about　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"lwip-select　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -360,6 +464,26 @@
 
     
 
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/01/11/lwip-UDP/" title="Pre: lwip-UDP">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/01/11/lwip-socket/" title="Next: lwip-socket">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-UDP/">lwip-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-select/">lwip-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-socket/">lwip-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
 
 
 

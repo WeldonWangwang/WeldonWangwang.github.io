@@ -15,13 +15,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="WeldonWangwang">
-<meta property="og:url" content="http://WeldonWangwang.github.io/tags/LwIP/index.html">
+<meta name="description" content="UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lwip-UDP">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/lwip-UDP/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
+<meta property="og:description" content="UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-11T12:34:06.216Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WeldonWangwang">
+<meta name="twitter:title" content="lwip-UDP">
+<meta name="twitter:description" content="UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -53,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Tag: LwIP | WeldonWangwang</title>
+<title>lwip-UDP | WeldonWangwang</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -63,9 +67,9 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
-        isTag: true,
+        isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
@@ -257,56 +261,191 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-lwip-UDP" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/01/11/lwip-socket/" class="archive-article-date">
-      <time datetime="2018-01-11T12:21:21.000Z" itemprop="datePublished">01-11</time>
+    <div class="article-meta">
+      <a href="/2018/01/11/lwip-UDP/" class="article-date">
+      <time datetime="2018-01-11T12:33:19.000Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
 
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/11/lwip-socket/">lwip-socket</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lwip-UDP
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
           
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/socket/">socket</a></li></ul>
+        <p>UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。<br><a id="more"></a></p>
+<h1 id="LwIP-UDP"><a href="#LwIP-UDP" class="headerlink" title="LwIP UDP"></a>LwIP UDP</h1><p>UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。  </p>
+<p>常见的 UDP 编程模型：  </p>
+<p><strong>UDP编程的服务器端一般步骤是：</strong>  </p>
+<ol>
+<li>创建一个socket，用函数socket()；  </li>
+<li>设置socket属性，用函数setsockopt();* 可选  </li>
+<li>绑定IP地址、端口等信息到socket上，用函数bind();  </li>
+<li>循环接收数据，用函数recvfrom();  </li>
+<li>关闭网络连接；</li>
+</ol>
+<p><strong>UDP编程的客户端一般步骤是：</strong>  </p>
+<ol>
+<li>创建一个socket，用函数socket()；  </li>
+<li>设置socket属性，用函数setsockopt();* 可选  </li>
+<li>绑定IP地址、端口等信息到socket上，用函数bind();* 可选 </li>
+<li>设置对方的IP地址和端口等属性;  </li>
+<li>发送数据，用函数sendto();  </li>
+<li>关闭网络连接；   </li>
+</ol>
+<p>标准的udp客户端开了套接口后，一般使用sendto和recvfrom函数来发数据，最近看到ntpclient的代码里面是使用send函数直接法的，就分析了一下，原来udp发送数据有两种方法供大家选用的，顺便把udp的connect用法也就解释清楚了。  </p>
+<p>建立客户端时如果不调用bind，则客户端在向外发包时，会由系统自己决定使用的接口的源端口，而调用bind则可以指定相应的参数。</p>
+<p>方法一：   </p>
+<pre><code>socket-----&gt;sendto()或recvfrom() 
+</code></pre><p>方法二：   </p>
+<pre><code>socket-----&gt;connect()-----&gt;send()或recv()
+</code></pre><p>首先从这里看出udp中也是可以使用connect的，但是这两种方法到底有什么区别呢？首先把这四个发送函数的定义列出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int send(int s, const void *msg, size_t len, int flags); </div><div class="line">int sendto(int s, const void *msg, size_t len, int flags, </div><div class="line">const struct sockaddr *to, socklen_t tolen);</div><div class="line"></div><div class="line">int recv(int s, void *buf, size_t len, int flags);</div><div class="line">int  recvfrom(int  s, void *buf, size_t len, int flags, </div><div class="line">struct sockaddr *from,  socklen_t *fromlen);</div></pre></td></tr></table></figure></p>
+<p>从他们的定义可以看出，sendto和recvfrom在收发时指定地址，而send和recv则没有，那么他们的地址是在那里指定的呢，答案就在于connect.  </p>
+<pre><code>int  connect(int  sockfd,  const  struct sockaddr *serv_addr, socklen_t
+addrlen);  
+</code></pre><p>在udp编程中，如果你只往一个地址发送，那么你可以使用send和recv，在使用它们之前用connect把它们的目的地址指定一下就可以了。  </p>
+<p>connect函数在udp中就是这个作用，用它来检测udp端口的是否开放是没有用的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">svr_addr.sin_family = AF_INET;</div><div class="line">svr_addr.sin_port = htons(PORT);</div><div class="line">svr_addr.sin_addr.s_addr = inet_addr(&quot;192.168.1.166&quot;);</div><div class="line">connect(sd, (struct sockaddr* )&amp;svr_addr, addrlen);</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2018/01/11/lwip-UDP/">lwip-UDP</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Wang Wangwang</a></p>
+        <p><span>Created:</span>2018-01-11, 20:33:19</p>
+        <p><span>Updated:</span>2018-01-11, 20:34:06</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2018/01/11/lwip-UDP/" title="lwip-UDP">http://WeldonWangwang.github.io/2018/01/11/lwip-UDP/</a>
+            <span class="copy-path" data-clipboard-text="From http://WeldonWangwang.github.io/2018/01/11/lwip-UDP/　　By Wang Wangwang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
     </div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/01/11/lwip-select/">
+                    lwip-select
+                </a>
+            </div>
+        
+    </nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LwIP-UDP"><span class="toc-number">1.</span> <span class="toc-text">LwIP UDP</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"lwip-UDP　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
 
     
 
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/01/11/lwip-select/" title="Next: lwip-select">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-UDP/">lwip-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-select/">lwip-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-socket/">lwip-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
