@@ -15,20 +15,18 @@
 
 
 
-<meta name="description" content="hexo 简介Hexo 是一个快速、简洁且高效的博客框架。Hexo 基于 Node.js，可以方便的生成静态网页托管在 github 上。Hexo 使用 Markdown（或其他渲染引擎）解析文章，页面风格多变，适合于搭建个人博客。在几秒内，即可利用靓丽的主题生成静态网页。">
-<meta name="keywords" content="ubuntu,hexo">
+<meta name="description" content="strcpy、strncpy与memcpy的区别与使用方法 strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。">
+<meta name="keywords" content="C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ubuntu 部署 hexo">
-<meta property="og:url" content="http://WeldonWangwang.github.io/2017/11/06/ubuntu-部署-hexo/index.html">
+<meta property="og:title" content="strcpy、strncpy与memcpy的区别与使用方法">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
-<meta property="og:description" content="hexo 简介Hexo 是一个快速、简洁且高效的博客框架。Hexo 基于 Node.js，可以方便的生成静态网页托管在 github 上。Hexo 使用 Markdown（或其他渲染引擎）解析文章，页面风格多变，适合于搭建个人博客。在几秒内，即可利用靓丽的主题生成静态网页。">
+<meta property="og:description" content="strcpy、strncpy与memcpy的区别与使用方法 strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.imgur.com/c6feNZ1.png">
-<meta property="og:updated_time" content="2017-11-10T07:19:29.391Z">
+<meta property="og:updated_time" content="2018-01-11T12:16:46.194Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu 部署 hexo">
-<meta name="twitter:description" content="hexo 简介Hexo 是一个快速、简洁且高效的博客框架。Hexo 基于 Node.js，可以方便的生成静态网页托管在 github 上。Hexo 使用 Markdown（或其他渲染引擎）解析文章，页面风格多变，适合于搭建个人博客。在几秒内，即可利用靓丽的主题生成静态网页。">
-<meta name="twitter:image" content="https://i.imgur.com/c6feNZ1.png">
+<meta name="twitter:title" content="strcpy、strncpy与memcpy的区别与使用方法">
+<meta name="twitter:description" content="strcpy、strncpy与memcpy的区别与使用方法 strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -60,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>ubuntu 部署 hexo | WeldonWangwang</title>
+<title>strcpy、strncpy与memcpy的区别与使用方法 | WeldonWangwang</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -264,11 +262,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-ubuntu-部署-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-strcpy、strncpy与memcpy的区别与使用方法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/11/06/ubuntu-部署-hexo/" class="article-date">
-      <time datetime="2017-11-06T04:32:30.000Z" itemprop="datePublished">2017-11-06</time>
+      <a href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/" class="article-date">
+      <time datetime="2018-01-11T12:08:28.000Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
 
@@ -283,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ubuntu 部署 hexo
+      strcpy、strncpy与memcpy的区别与使用方法
     </h1>
   
 
@@ -294,7 +292,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -304,108 +302,30 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="hexo-简介"><a href="#hexo-简介" class="headerlink" title="hexo 简介"></a>hexo 简介</h2><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 基于 Node.js，可以方便的生成静态网页托管在 github 上。<br>Hexo 使用 Markdown（或其他渲染引擎）解析文章，页面风格多变，适合于搭建个人博客。在几秒内，即可利用靓丽的主题生成静态网页。<br><a id="more"></a></p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><blockquote>
-<ol>
-<li>github 帐号  </li>
-<li>PC 已经安装 git  </li>
-</ol>
-<p>本文环境： ubuntu 16.04  </p>
-</blockquote>
-<h2 id="安装-Node-amp-npm"><a href="#安装-Node-amp-npm" class="headerlink" title="安装 Node &amp; npm"></a>安装 Node &amp; npm</h2><p>Nodejs 是一个 js 框架，用于静态博客托管，因此，首先需要安装 Node.<br>npm 是 node 的包管理工具，因此需要安装 npm.<br>可以采取命令行直接安装：  </p>
-<pre><code>$ sudo apt-get install nodejs
-$  sudo apt-get install npm  
-</code></pre><p>注：  使用apt-get 安装的nodejs版本过老，会导致安装hexo的时候出问题。<br>官方推荐的安装方法：</p>
-<pre><code>curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get install -y nodejs  
-</code></pre><h2 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h2><p>我们使用 npm 安装 hexo:  </p>
-<pre><code>$ sudo npm install hexo-cli -g
-$ sudo npm install -g hexo  
-</code></pre><p>安装完成后进行初始化：<br>初始化时需要添加以后存放博客以及配置文件的文件夹  </p>
-<pre><code>$ hexo init &lt;your folder&gt;  
-$ cd &lt;folder&gt;
-$ npm install  //安装依赖
-</code></pre><p>至此，hexo 已经安装完毕，可以进行本地测试。  </p>
-<h2 id="hexo-命令-和本地测试"><a href="#hexo-命令-和本地测试" class="headerlink" title="hexo 命令 和本地测试"></a>hexo 命令 和本地测试</h2><ul>
-<li>常用命令  </li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">命令</th>
-<th style="text-align:center">释义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">hexo g</td>
-<td style="text-align:center">generate ,编译成静态文件</td>
-</tr>
-<tr>
-<td style="text-align:center">hexo d</td>
-<td style="text-align:center">deploy, 部署网站</td>
-</tr>
-<tr>
-<td style="text-align:center">hexo s</td>
-<td style="text-align:center">server, 本地运行</td>
-</tr>
-<tr>
-<td style="text-align:center">hexo c</td>
-<td style="text-align:center">clean, 清空generate生成器的文件</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>本地测试  </p>
-<pre><code>$ cd ~/&lt;folder&gt;
-$ hexo generate     #生成博客
-$ hexo server   #运行本地服务  
-</code></pre></li>
-</ul>
-<p>在浏览器输入 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 就可以看到效果.  </p>
-<ul>
-<li>目录结构  </li>
-</ul>
-<p>当安装成功后，可以看到 hexo 的目录结构如下：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">├── _config.yml</div><div class="line">├── db.json</div><div class="line">├── node_modules</div><div class="line">├── package.json</div><div class="line">├── public</div><div class="line">├── scaffolds</div><div class="line">├── source</div><div class="line">└── themes</div></pre></td></tr></table></figure>
-<h2 id="部署到-github"><a href="#部署到-github" class="headerlink" title="部署到 github"></a>部署到 github</h2><h4 id="github-创建仓库"><a href="#github-创建仓库" class="headerlink" title="github 创建仓库"></a>github 创建仓库</h4><p>在 github 上创建一个与自己用户名对应的 github 仓库，仓库名如下：  </p>
-<p>【your_user_name.github.io】</p>
-<p><em>注：务必对应自己的用户名，且建成后不要添加 README 等文件，只需要一个空仓库即可。</em></p>
-<h4 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h4><p>在 hexo 的配置目录下的 <code>_config.yml</code> 文件为博客的配置文件，可以对网页端的一些属性和内容进行修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">title: 这里填写博客的标题</div><div class="line">subtitle: 这里填写博客的副标题</div><div class="line">description: 这里填写博客的描述</div><div class="line">author: 这里填写博客的作者</div><div class="line">language: 这里填写博客的语言,如果是中文填写”zh”</div><div class="line">url: 这里填写我们之前申请的博客网页存放空间的网址,例如我们的github用户名为”aaa”,这里就填写”http://aaa.github.io”</div><div class="line">deploy:</div><div class="line">type: 这里填写”git”</div><div class="line">repo: 这里填写我们之前申请的git仓库的地址,例如我们的用户名为”aaa”,则此处填写”git@github.com:aaa/aaa.github.io.git”</div></pre></td></tr></table></figure></p>
-<p>注： url 可以选择为自己所申请的域名。如果没有申请，则使用 <a href="http://your_user_name.github.io" target="_blank" rel="external">http://your_user_name.github.io</a>  </p>
-<h4 id="推送至远端"><a href="#推送至远端" class="headerlink" title="推送至远端"></a>推送至远端</h4><p>推送至 github 还需要安装 hexo-git 插件：  </p>
-<pre><code>npm install hexo-deployer-git --save  
-</code></pre><p>这样，在调用     <code>hexo d</code> 的时候就可以自动 push 到 github 上。</p>
-<h4 id="建立-hexo-分支"><a href="#建立-hexo-分支" class="headerlink" title="建立 hexo 分支"></a>建立 hexo 分支</h4><p>为了更好的保存自己 hexo 的配置和方便存档，可以建立一个 hexo 分支，用来存放现在 hexo 的所有配置文件。<br>把生成的 public 目录下的文件放到 master 分支下即可。git commi后把这两个分支推送到你的 github 上。</p>
-<p><img src="https://i.imgur.com/c6feNZ1.png" alt=""></p>
-<p><em>—————————-华丽的分割线—————————-</em></p>
-<p>至此，github 的部署设置已经完成，执行</p>
-<pre><code>hexo d
-</code></pre><p>然后在浏览器中输入 <a href="http://your_user_name.github.io" target="_blank" rel="external">http://your_user_name.github.io</a> 就可以访问自己的博客啦！  </p>
-<p>以后每次的部署步骤可以按照以下三步：  </p>
-<pre><code>hexo clean
-
-hexo generate
-
-hexo deploy  
-</code></pre><p><em>注：部署出错 clean 一下一般都可以了~</em></p>
-<h2 id="写一篇新博客"><a href="#写一篇新博客" class="headerlink" title="写一篇新博客"></a>写一篇新博客</h2><p>使用如下命令即可新建一篇名为 test 的博客：  </p>
-<pre><code>hexo new test  
-</code></pre><p>test.md 存放于 <code>sources/_posts</code>. 博客的正文格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">title: test</div><div class="line">tags:</div><div class="line">  - Ubuntu</div><div class="line">  - Hexo</div><div class="line">categories:</div><div class="line">  - Hexo</div><div class="line">date: 2017-11-3 15:31:00</div><div class="line">---</div><div class="line"></div><div class="line">## 以下为 Markdown 文章正文。</div></pre></td></tr></table></figure></p>
-<p>当博客推送到远端后，即可在前面提到的网址进行访问查看。</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ul>
-<li><p>ERROR Deployer not found: git 或者 ERROR Deployer not found: github</p>
-<p>解决方法： npm install hexo-deployer-git –save</p>
-</li>
-</ul>
-<ul>
-<li><p>ERROR Plugin load failed: hexo-server</p>
-<p>解决方法，执行命令：</p>
-<p>sudo npm install hexo-server  </p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在部署安装时一定一步一步来，在出现各种莫名的问题时，首先看命名是否出错，然后建议去 hexo 的 github 主页的 issues 中查找对应的问题，一般都会有类似的问题和解答。</p>
-
+        <p>strcpy、strncpy与memcpy的区别与使用方法</p>
+<p>strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。<br><a id="more"></a><br>本文参考《C 标准库》编写。</p>
+<h2 id="一、函数说明"><a href="#一、函数说明" class="headerlink" title="一、函数说明"></a>一、函数说明</h2><h3 id="1、memcpy函数"><a href="#1、memcpy函数" class="headerlink" title="1、memcpy函数"></a>1、memcpy函数</h3><pre><code>void  *memcpy(void *s1,  const void *s2,  size_t  n);
+</code></pre><p><strong>说明：</strong></p>
+<p>函数memcpy从s2指向的对象中复制n个字符到s1指向的对象中。如果复制发生在两个重叠的对象中，则这种行为未定义。</p>
+<p><strong>返回值：</strong></p>
+<p>函数memcpy返回s1的值。</p>
+<h2 id="2、strcpy函数"><a href="#2、strcpy函数" class="headerlink" title="2、strcpy函数"></a>2、strcpy函数</h2><pre><code>char  *strcpy(char *s2, const char *s1);
+</code></pre><p><strong>说明：</strong></p>
+<p>函数strcpy把s1指向的串（包括空字符）复制到s2指向的数组中。如果复制发生在两个重叠的对象中，则这种行为未定义。</p>
+<p><strong>返回值：</strong></p>
+<p>函数strcpy返回s2的值。</p>
+<h2 id="3、strncpy函数"><a href="#3、strncpy函数" class="headerlink" title="3、strncpy函数"></a>3、strncpy函数</h2><pre><code>char  *strncpy(char *s2, const char *s1, size_t n);
+</code></pre><p><strong>说明：</strong></p>
+<p>函数strncpy从s1指向的数组中最多复制n个字符（不复制空字符后面的字符）到s2指向的数组中。如果复制发生在两个重叠的对象中，则这种行为未定义。</p>
+<p>如果s1指向的数组是一个比n短的字符串，则在s2定义的数组后面补空字符，直到写入了n个字符。</p>
+<p><strong>返回值：</strong></p>
+<p>函数strncpy返回s2的值。</p>
+<h2 id="二、注意事项"><a href="#二、注意事项" class="headerlink" title="二、注意事项"></a>二、注意事项</h2><p>strcpy 是依据 “\0” 作为结束判断的，如果 s2 的空间不够，则会引起 buffer overflow。</p>
+<p>memcpy用来在内存中复制数据，由于字符串是以“\0”结尾的，所以对于在数据中包含“\0”的数据只能用memcpy。</p>
+<p>Strncpy和memcpy很相似，只不过它在一个终止的空字符处停止。当n&gt;strlen(s1)时，给s2不够数的空间里填充“\0”；当n&lt;=strlen(s1)时，s2是没有结束符“\0”的。</p>
+<p>这里隐藏了一个事实，就是s2指向的内存一定会被写n个字符。</p>
+<p><strong>所以总的来说注意：</strong></p>
+<h5 id="1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。"><a href="#1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。" class="headerlink" title="1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。"></a>1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。</h5><h5 id="2、使用strncpy或memcpy时，n应该大于strlen-s1-，或者说最好n-gt-strlen-s1-1；这个1-就是最后的“-0”。"><a href="#2、使用strncpy或memcpy时，n应该大于strlen-s1-，或者说最好n-gt-strlen-s1-1；这个1-就是最后的“-0”。" class="headerlink" title="2、使用strncpy或memcpy时，n应该大于strlen(s1)，或者说最好n &gt;= strlen(s1)+1；这个1 就是最后的“\0”。"></a>2、使用strncpy或memcpy时，n应该大于strlen(s1)，或者说最好n &gt;= strlen(s1)+1；这个1 就是最后的“\0”。</h5><h5 id="3、使用strncpy时，确保s2的最后一个字符是“-0”。"><a href="#3、使用strncpy时，确保s2的最后一个字符是“-0”。" class="headerlink" title="3、使用strncpy时，确保s2的最后一个字符是“\0”。"></a>3、使用strncpy时，确保s2的最后一个字符是“\0”。</h5>
       
     </div>
     
@@ -413,13 +333,13 @@ hexo deploy
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></p>
+        <p><span>本文标题:</span><a href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Wang Wangwang</a></p>
-        <p><span>发布时间:</span>2017-11-06, 12:32:30</p>
-        <p><span>最后更新:</span>2017-11-10, 15:19:29</p>
+        <p><span>发布时间:</span>2018-01-11, 20:08:28</p>
+        <p><span>最后更新:</span>2018-01-11, 20:16:46</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/11/06/ubuntu-部署-hexo/" title="ubuntu 部署 hexo">http://WeldonWangwang.github.io/2017/11/06/ubuntu-部署-hexo/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2017/11/06/ubuntu-部署-hexo/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/" title="strcpy、strncpy与memcpy的区别与使用方法">http://WeldonWangwang.github.io/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -431,12 +351,12 @@ hexo deploy
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/11/06/ESP32-实现-FTP-server/">
-                    ESP32 实现 FTP-server
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">
+                    基于 ESP32 和 OneNET 的人流量检测及数据云端统计
                 </a>
             </div>
-        
         
     </nav>
 
@@ -446,7 +366,7 @@ hexo deploy
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo-简介"><span class="toc-number">1.</span> <span class="toc-text">hexo 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Node-amp-npm"><span class="toc-number">3.</span> <span class="toc-text">安装 Node & npm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-hexo"><span class="toc-number">4.</span> <span class="toc-text">安装 hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo-命令-和本地测试"><span class="toc-number">5.</span> <span class="toc-text">hexo 命令 和本地测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署到-github"><span class="toc-number">6.</span> <span class="toc-text">部署到 github</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#github-创建仓库"><span class="toc-number">6.0.1.</span> <span class="toc-text">github 创建仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置修改"><span class="toc-number">6.0.2.</span> <span class="toc-text">配置修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#推送至远端"><span class="toc-number">6.0.3.</span> <span class="toc-text">推送至远端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#建立-hexo-分支"><span class="toc-number">6.0.4.</span> <span class="toc-text">建立 hexo 分支</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写一篇新博客"><span class="toc-number">7.</span> <span class="toc-text">写一篇新博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见问题"><span class="toc-number">8.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、函数说明"><span class="toc-number">1.</span> <span class="toc-text">一、函数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、memcpy函数"><span class="toc-number">1.1.</span> <span class="toc-text">1、memcpy函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、strcpy函数"><span class="toc-number">2.</span> <span class="toc-text">2、strcpy函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、strncpy函数"><span class="toc-number">3.</span> <span class="toc-text">3、strncpy函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、注意事项"><span class="toc-number">4.</span> <span class="toc-text">二、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2、使用strncpy或memcpy时，n应该大于strlen-s1-，或者说最好n-gt-strlen-s1-1；这个1-就是最后的“-0”。"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">2、使用strncpy或memcpy时，n应该大于strlen(s1)，或者说最好n >= strlen(s1)+1；这个1 就是最后的“\0”。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3、使用strncpy时，确保s2的最后一个字符是“-0”。"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">3、使用strncpy时，确保s2的最后一个字符是“\0”。</span></a></li></ol></li></ol></li></ol></li></ol>
         
     </div>
     <style>
@@ -482,7 +402,7 @@ hexo deploy
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"ubuntu 部署 hexo　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"strcpy、strncpy与memcpy的区别与使用方法　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -502,15 +422,15 @@ hexo deploy
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/11/06/ESP32-实现-FTP-server/" title="上一篇: ESP32 实现 FTP-server">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/" title="下一篇: 基于 ESP32 和 OneNET 的人流量检测及数据云端统计">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
