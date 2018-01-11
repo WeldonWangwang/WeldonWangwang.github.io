@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Wang Wangwang" />
+
+
+
+<meta name="description" content="LwIP socket建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
+<meta name="keywords" content="LwIP,socket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lwip-socket">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/lwip-socket/index.html">
+<meta property="og:site_name" content="WeldonWangwang">
+<meta property="og:description" content="LwIP socket建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://i.imgur.com/v8v0rla.png">
+<meta property="og:updated_time" content="2018-01-11T12:23:49.702Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lwip-socket">
+<meta name="twitter:description" content="LwIP socket建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
+<meta name="twitter:image" content="http://i.imgur.com/v8v0rla.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="WeldonWangwang" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>lwip-socket | WeldonWangwang</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Wang Wangwang</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:17621766966@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/WeldonWangwang" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/yu-shang-zui-yue-49?utm_source=wechat_session&utm_medium=social&from=singlemessage" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">嵌入式软件开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Wang Wangwang</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Wang Wangwang</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:17621766966@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/WeldonWangwang" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/yu-shang-zui-yue-49?utm_source=wechat_session&utm_medium=social&from=singlemessage" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-lwip-socket" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/11/lwip-socket/" class="article-date">
+      <time datetime="2018-01-11T12:21:21.000Z" itemprop="datePublished">2018-01-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lwip-socket
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/socket/">socket</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="LwIP-socket"><a href="#LwIP-socket" class="headerlink" title="LwIP socket"></a>LwIP socket</h1><p>建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。<br><a id="more"></a></p>
+<hr>
+<ul>
+<li>LwIP–&gt;TCP/IP的一种实现</li>
+<li>LwIP源码框架：<br>  api—–sequential API和socket API ，需要操作系统<br>  core—-LwIP内核源码，不需要操作系统<br>  include-头文件<br>  netif—底层网络接口相关文件  </li>
+<li>LwIP 动态内存管理机制</li>
+<li><p>LwIP 提供三种内存分配策略  （参见《LwIP协议栈源码详解》）    </p>
+<ol>
+<li><p>C 运行库自带的内存分配策略</p>
+</li>
+<li><p>动态内存堆（HEAP）分配策略</p>
+</li>
+<li><p>动态内存池（POOL）</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><img src="http://i.imgur.com/v8v0rla.png" alt=""></p>
+<p>图1. tcp_socket流程图</p>
+<h2 id="SOCKET"><a href="#SOCKET" class="headerlink" title="SOCKET()"></a>SOCKET()</h2><p>socket()函数用于根据指定的地址族、数据类型和协议来分配一个套接口的描述字及其所用的资源。如果协议protocol未指定（等于0），则使用缺省的连接方式。<br>对于使用一给定地址族的某一特定套接口，只支持一种协议。但地址族可设为AF_UNSPEC（未指定），这样的话协议参数就要指定了。协议号特定于进行通讯的“通讯域”。  </p>
+<h3 id="套接字："><a href="#套接字：" class="headerlink" title="套接字："></a>套接字：</h3><p>源IP地址和目的IP地址以及源端口号和目的端口号的组合称为套接字。其用于标识客户端请求的服务器和服务。<br>它是网络通信过程中端点的抽象表示，包含进行网络通信必需的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。</p>
+<h3 id="函数原型："><a href="#函数原型：" class="headerlink" title="函数原型："></a>函数原型：</h3><pre><code>#include &lt;sys/socket.h&gt;  
+int socket( int af, int type, int protocol);  
+</code></pre><p><strong>af：</strong>一个地址描述。目前仅支持AF_INET格式，也就是说ARPA Internet地址格式。 </p>
+<p><strong>type：</strong>指定socket类型。新套接口的类型描述类型，如TCP（SOCK_STREAM）和UDP（SOCK_DGRAM）。常用的socket类型有，SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKET等等。  </p>
+<p><strong>protocol：</strong>顾名思义，就是指定协议。套接口所用的协议。如调用者不想指定，可用0。常用的协议有，IPPROTO_TCP、IPPROTO_UDP、IPPROTO_STCP、IPPROTO_TIPC等，它们分别对应TCP传输协议、UDP传输协议、STCP传输协议、TIPC传输协议。  </p>
+<p>如果调用成功就返回新创建的套接字的描述符，如果失败就返回INVALID_SOCKET（Linux下失败返回-1）。套接字描述符是一个整数类型的值。每个进程的进程空间里都有一个套接字描述符表，该表中存放着套接字描述符和套接字数据结构的对应关系。该表中有一个字段存放新创建的套接字的描述符，另一个字段存放套接字数据结构的地址，因此根据套接字描述符就可以找到其对应的套接字数据结构。每个进程在自己的进程空间里都有一个套接字描述符表但是套接字数据结构都是在操作系统的内核缓冲里。</p>
+<h2 id="server-addr-sin-addr-s-addr-htonl-INADDR-ANY"><a href="#server-addr-sin-addr-s-addr-htonl-INADDR-ANY" class="headerlink" title="server_addr.sin_addr.s_addr = htonl(INADDR_ANY);"></a>server_addr.sin_addr.s_addr = htonl(INADDR_ANY);</h2><p><strong>INADDR_ANY</strong> 表示建立服务器时监听地址为所有地址。当然啦，如果服务端用192.168.1.102作为监听IP，客户端用192.168.1.102去connect,  那也是可以的。   </p>
+<p>在使用socket编写服务器程序时，设置服务器绑定的sockaddr_in结构往往会困扰很多同学，sockaddr_in结构中sin_famliy和sin_port（注意要使用htons转换为网络序）就不说了，相信大家已知道。sin_addr是要设置的监听地址。sin_addr类型为： </p>
+<pre><code>struct in_addr {
+   in_addr_t s_addr;
+
+   };
+</code></pre><p>这里有几个常用的值：</p>
+<ol>
+<li><p>sin_addr.s_addr = INADDR_ANY;（0x00000000）</p>
+</li>
+<li><p>sin_addr.s_addr = INADDR_NONE;（ 0xffffffff）inet_addr(“255.255.255.255”)</p>
+</li>
+<li><p>sin_addr.s_addr = INADDR_LOOPBACK;（0x7f000001）inet_addr(“127.0.0.1”)</p>
+</li>
+<li><p>sin_addr.s_addr = inet_addr(“192.168.1.211”);（192.168.1.211是本地eth0的ip地址）</p>
+</li>
+<li><p>sin_addr.s_addr = inet_addr(“192.168.1.210”);（192.168.1.211是本地eth1的ip地址）</p>
+</li>
+</ol>
+<p>第一个值将监听IP设置为0，表示客户端发往本地任意ip上该端口的数据包都可以被服务器接收到。</p>
+<p>第二个值将监听IP设置为广播地址,实验发现可以设置成功，但不知道有啥用？请各位大神指教。</p>
+<p>第三个值将监听IP设置为本地环回地址，表明该服务仅用于本地socket通信，并且通信数据包不经过网卡，即使不连接网线也可以向127.0.0.1的监听端口发送数据包。</p>
+<p>第四、五个值表示将监听IP设置为本地网卡上的IP。</p>
+<p><strong>ps：</strong>localhost、127.0.0.1和192.168.1.211的区别：localhost是本地主机名，/etc/hosts文件可以设置IP和localhost的对应关系；127.0.0.1是本地环回地址，和本地环回地址通信不经过物理网卡，因次即使不连接网络，127.0.0.1的数据包也可以发送和接收；192.168.1.211是本地网卡IP地址，网卡需上电才可以进行通信。</p>
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h2><p>把名字和套接字相关联</p>
+<h3 id="函数原型：-1"><a href="#函数原型：-1" class="headerlink" title="函数原型："></a>函数原型：</h3><pre><code>#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+int bind(int sockfd, const struct sockaddr *addr,socklen_t *addrlen);
+</code></pre><p>当用socket()函数创建套接字以后，套接字在名称空间(网络地址族)中存在，但没有任何地址给它赋值。bind()把用addr指定的地址赋值给用文件描述符代表的套接字sockfd。addrlen指定了以addr所指向的地址结构体的字节长度。一般来说，该操作称为“给套接字命名”。  </p>
+<p>通常，在一个SOCK_STREAM套接字接收连接之前，必须通过bind()函数用本地地址为套接字命名。</p>
+<h2 id="listen"><a href="#listen" class="headerlink" title="listen()"></a>listen()</h2><h3 id="函数原型：-2"><a href="#函数原型：-2" class="headerlink" title="函数原型："></a>函数原型：</h3><pre><code>int listen(int  sockfd, int  backlog);
+</code></pre><p>当服务器编程时，经常需要限制客户端的连接个数，下面为问题分析以及解决办法：</p>
+<p>下面只讨论TCP  UDP不做讨论（很少使用到listen函数）<br>　　listen函数用法：函数应该在调用socket和bind这两个函数之后，accept函数之前调用。<br>　　listen函数作用：让服务器套接字sockfd进入监听状态。  </p>
+<ol>
+<li><p>返回值：  </p>
+<p>成功返回0；<br>失败返回-1。  </p>
+</li>
+<li>参数：<br>sockfd：套接字，成功返回后进入监听模式，当有新连接并accept后会再建立一个套接字保存新的连接；<br>backlog：暂且翻译为后备连接吧！下面详细介绍此参数：</li>
+</ol>
+<p>　　1）  当TCP接收一个连接后（三次握手通过）会将此连接存在连接请求队列里面，并对队列个数+1，而backlog为此队列允许的最大个数，超过此值，则直接将新的连接删除，即不在接收新的连接。将这些处于请求队列里面的连接暂记为后备连接，这些都在底层自动完成，底层将连接添加到队列后等待上层来处理（一般是调用accept函数接收连接）；</p>
+<p>　　2）  当上层调用accept函数接收一个连接（处于请求队列里面的后备连接）,队列个数会-1；</p>
+<p>　　3）  那么这样一个加一个减，只要底层提交的速度小于上层接收的速度(一般是这样)，很明显backlog就不能限制连接的个数，只能限制后备连接的个数。那为啥要用这个backlog呢？主要用于并发处理，当上层没来的及接收时，底层可以提交多个连接；</p>
+<p>　　4）  backlog的取值范围 ,一般为0-5。</p>
+<h2 id="accept"><a href="#accept" class="headerlink" title="accept()"></a>accept()</h2><p>接收一个套接字中已建立的连接<br>服务器编程中最重要的一步是等待并接受客户的连接，那么这一步在编程中如何完成，accept函数就是完成这一步的。它从内核中取出已经建立的客户连接，然后<strong>把这个已经建立的连接返回给用户程序</strong>，此时用户程序就可以与自己的客户进行点到点的通信了。  </p>
+<p>accept函数等待并接受客户请求：</p>
+<pre><code>#include&lt;sys/socket.h&gt;
+int accept(int sockfd, struct sockaddr* addr, socklen_t* len)
+</code></pre><p>返回：非负描述字——成功， -1——失败</p>
+<p><strong>accept 默认会阻塞进程，直到有一个客户连接建立后返回</strong>，它返回的是一个新可用的套接字，这个套接字是连接套接字。此时我们需要区分两种套接字，一种套接字正如accept的参数sockfd，它是监听套接字，在调用listen函数之后，一个套接字会从主动连接的套接字变身为一个监听套接字；而accept返回是一个连接套接字，它代表着一个网络已经存在的点点连接。自然要问的是：为什么要有两种套接字？原因很简单，如果使用一个描述字的话，那么它的功能太多，使得使用很不直观，同时在内核确实产生了一个这样的新的描述字。  </p>
+<p>参数<strong>sockfd</strong> 就是上面解释中的监听套接字，这个套接字用来监听一个端口，当有一个客户与服务器连接时，它使用这个一个端口号，而此时这个端口号正与这个套接字关联。当然客户不知道套接字这些细节，它只知道一个地址和一个端口号。</p>
+<p>参数<strong>addr</strong> 是一个结果参数，它用来接受一个返回值，这返回值指定客户端的地址，当然这个地址是通过某个地址结构来描述的，用户应该知道这一个什么样的地址结构。如果对客户的地址不感兴趣，那么可以把这个值设置为NULL。<br>参数len 也是结果的参数，用来接受上述addr的结构的大小的，它指明addr结构所占有的字节个数。同样的，它也可以被设置为NULL。   </p>
+<p>##基于上述不同，UDP和TCP编程步骤也有些不同，如下：<br><strong>TCP编程的服务器端一般步骤是：</strong>  </p>
+<ol>
+<li>创建一个socket，用函数socket()；  </li>
+<li>设置socket属性，用函数setsockopt(); * 可选  </li>
+<li>绑定IP地址、端口等信息到socket上，用函数bind();  </li>
+<li>开启监听，用函数listen()；  </li>
+<li>接收客户端上来的连接，用函数accept()；  </li>
+<li>收发数据，用函数send()和recv()，或者read()和write();  </li>
+<li>关闭网络连接；  </li>
+<li>关闭监听；</li>
+</ol>
+<p><strong>TCP编程的客户端一般步骤是：</strong></p>
+<ol>
+<li>创建一个socket，用函数socket()；  </li>
+<li>设置socket属性，用函数setsockopt();* 可选  </li>
+<li>绑定IP地址、端口等信息到socket上，用函数bind();* 可选  </li>
+<li>设置要连接的对方的IP地址和端口等属性；  </li>
+<li>连接服务器，用函数connect()；  </li>
+<li>收发数据，用函数send()和recv()，或者read()和write();  </li>
+<li>关闭网络连接；</li>
+</ol>
+<h2 id="recv"><a href="#recv" class="headerlink" title="recv()"></a>recv()</h2><p>函数原型：  </p>
+<pre><code>int recv(SOCKET socket, char FAR* buf, int len, int flags);
+</code></pre><p>参数说明：  </p>
+<pre><code>socket：一个标识已连接套接口的描述字。       
+buf：用于接收数据的缓冲区。    
+len：缓冲区长度。  
+flags：指定调用方式。取值：MSG_PEEK 查看当前数据，数据将被复制到缓冲区中，但并不从输入队列中删除；MSG_OOB 处理带外数据。一般取0；   
+</code></pre><p>返回值：<br>若无错误发生，recv()返回读入的字节数。如果连接已中止，返回0。否则的话，返回SOCKET_ERROR错误，应用程序可通过WSAGetLastError()获取相应错误代码。  </p>
+<h2 id="recvfrom"><a href="#recvfrom" class="headerlink" title="recvfrom()"></a>recvfrom()</h2><p>函数原型：  </p>
+<pre><code>ssize_t recvfrom(int sockfd, void buf, int len, unsigned int flags, struct socketaddr* from, socket_t* fromlen);
+</code></pre><p>参数说明：  </p>
+<pre><code>sockfd：标识一个已连接套接口的描述字。
+buf：接收数据缓冲区。
+len：缓冲区长度。
+flags：调用操作方式。是以下一个或者多个标志的组合体，可通过or操作连在一起：  
+
+（1）MSG_DONTWAIT：操作不会被阻塞；
+（2）MSG_ERRQUEUE： 指示应该从套接字的错误队列上接收错误值，依据不同的协议，错误值以某种辅佐性消息的方式传递进来，使用者应该提供足够大的缓冲区。导致错误的原封包通过msg_iovec作为一般的数据来传递。导致错误的数据报原目标地址作为msg_name被提供。错误以sock_extended_err结构形态被使用。
+（3）MSG_PEEK：指示数据接收后，在接收队列中保留原数据，不将其删除，随后的读操作还可以接收相同的数据。
+（4）MSG_TRUNC：返回封包的实际长度，即使它比所提供的缓冲区更长， 只对packet套接字有效。
+（5）MSG_WAITALL：要求阻塞操作，直到请求得到完整的满足。然而，如果捕捉到信号，错误或者连接断开发生，或者下次被接收的数据类型不同，仍会返回少于请求量的数据。
+（6）MSG_EOR：指示记录的结束，返回的数据完成一个记录。
+（7）MSG_TRUNC：指明数据报尾部数据已被丢弃，因为它比所提供的缓冲区需要更多的空间。
+/*(MSG_TRUNC使用错误,4才是MSG_TRUNC的正确解释)*/
+（8）MSG_CTRUNC：指明由于缓冲区空间不足，一些控制数据已被丢弃。
+（9）MSG_OOB：指示接收到out-of-band数据(即需要优先处理的数据)。
+（10）MSG_ERRQUEUE：指示除了来自套接字错误队列的错误外，没有接收到其它数据。
+from：（可选）指针，指向装有源地址的缓冲区。
+fromlen：（可选）指针，指向from缓冲区长度值。
+</code></pre><p>返回值：<br>若无错误发生，recvfrom()返回读入的字节数。如果连接已中止，返回0。否则的话，返回SOCKET_ERROR错误，应用程序可通过WSAGetLastError()获取相应错误代码。    </p>
+<h2 id="sendto"><a href="#sendto" class="headerlink" title="sendto()"></a>sendto()</h2><p>函数原型：  </p>
+<pre><code>int sendto( SOCKET s, const char FAR* buf, int size, int flags, const struct sockaddr FAR* to, int tolen);
+</code></pre><p>参数说明：  </p>
+<pre><code>s：套接字
+buf：待发送数据的缓冲区
+size：缓冲区长度
+flags：调用方式标志位, 一般为0, 改变Flags，将会改变Sendto发送的形式
+addr：（可选）指针，指向目的套接字的地址
+tolen：addr所指地址的长度
+</code></pre><p>返回值：</p>
+<p>如果成功，则返回发送的字节数，失败则返回SOCKET_ERROR。</p>
+<h2 id="send"><a href="#send" class="headerlink" title="send()"></a>send()</h2><p>函数原型：  </p>
+<pre><code>int send( SOCKET s, const char FAR* buf, int len, int flags);
+</code></pre><p>参数说明：  </p>
+<pre><code>s：一个用于标识已连接套接口的描述字。
+buf：包含待发送数据的缓冲区。
+len：缓冲区中数据的长度。
+flags：调用执行方式。
+</code></pre><p>返回值：  </p>
+<p>若无错误发生，send()返回所发送数据的总数（请注意这个数字可能小于len中所规定的大小）。否则的话，返回SOCKET_ERROR错误，应用程序可通过WSAGetLastError()获取相应错误代码。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/01/11/lwip-socket/">lwip-socket</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Wang Wangwang</a></p>
+        <p><span>发布时间:</span>2018-01-11, 20:21:21</p>
+        <p><span>最后更新:</span>2018-01-11, 20:23:49</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/01/11/lwip-socket/" title="lwip-socket">http://WeldonWangwang.github.io/2018/01/11/lwip-socket/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2018/01/11/lwip-socket/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">
+                    strcpy、strncpy与memcpy的区别与使用方法
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LwIP-socket"><span class="toc-number">1.</span> <span class="toc-text">LwIP socket</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SOCKET"><span class="toc-number">1.1.</span> <span class="toc-text">SOCKET()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#套接字："><span class="toc-number">1.1.1.</span> <span class="toc-text">套接字：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型："><span class="toc-number">1.1.2.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#server-addr-sin-addr-s-addr-htonl-INADDR-ANY"><span class="toc-number">1.2.</span> <span class="toc-text">server_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bind"><span class="toc-number">1.3.</span> <span class="toc-text">bind()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型：-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listen"><span class="toc-number">1.4.</span> <span class="toc-text">listen()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型：-2"><span class="toc-number">1.4.1.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#accept"><span class="toc-number">1.5.</span> <span class="toc-text">accept()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recv"><span class="toc-number">1.6.</span> <span class="toc-text">recv()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recvfrom"><span class="toc-number">1.7.</span> <span class="toc-text">recvfrom()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sendto"><span class="toc-number">1.8.</span> <span class="toc-text">sendto()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#send"><span class="toc-number">1.9.</span> <span class="toc-text">send()</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"lwip-socket　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/" title="下一篇: strcpy、strncpy与memcpy的区别与使用方法">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-socket/">lwip-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 Wang Wangwang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
