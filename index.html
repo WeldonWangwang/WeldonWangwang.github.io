@@ -185,7 +185,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP，TCP-IP/">LwIP，TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/">UDP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式/">嵌入式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译，boot/">编译，boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP，TCP-IP/">LwIP，TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/">UDP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gcc/">gcc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/make/">make</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式/">嵌入式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译，boot/">编译，boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
                     </div>
                 </section>
                 
@@ -264,6 +264,70 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-编译相关知识汇总" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/11/编译相关知识汇总/" class="article-date">
+      <time datetime="2018-01-11T12:51:46.000Z" itemprop="datePublished">2018-01-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/11/编译相关知识汇总/">编译相关知识汇总</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>着重对 make，gcc，编译，汇编，链接等进行详述。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gcc/">gcc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/make/">make</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式/">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2018/01/11/编译相关知识汇总/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-嵌入式系统启动简述" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -293,29 +357,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。</p>
-<h2 id="1-引导加载程序："><a href="#1-引导加载程序：" class="headerlink" title="1. 引导加载程序："></a>1. 引导加载程序：</h2><p>其中包括内部ROM中的固化启动代码和Boot Loader两部分<br>   内部固化的ROM Code是在芯片生产时固化的，作用基本上是引导bootloader  </p>
-<ul>
-<li>bootloader的作用：<br>完成基本的处理器和平台的初始化，主要任务是获取并引导一个完整的操作系统，它负责定位、载入以及将控制权移交给主操作系统。当操作系统获得控制权之后，Bootloader就会被覆盖，不复存在了。   </li>
-</ul>
-<h2 id="2-程序预处理，编译，汇编，链接"><a href="#2-程序预处理，编译，汇编，链接" class="headerlink" title="2. 程序预处理，编译，汇编，链接"></a>2. 程序预处理，编译，汇编，链接</h2><ul>
-<li>预处理（Pre-Processing）：  处理那些源代码中以#开始的预编译指令：加载头文件；宏替换；条件编译  </li>
-<li>编译（Compiling）：<br>编译阶段，Gcc首先要检查代码的规范性、是否有语法错误（语法分析，词法分析）等，以确定代码的实际要做的工作，在检查无误后，Gcc把代码翻译成汇编语言。用户可以使用”-S”选项来进行查看，该选项只进行编译而不进行汇编，生成汇编代码。  </li>
-<li>汇编（Assembling）：汇编阶段是把编译阶段生成的”.s”文件转成目标文件，读者在此可使用选项”-c”就可看到汇编代码已转化为”.o”的二进制目标代码（机器码）了。如下所示：</li>
-<li><p>链接（Linking）：链接器ld将各个目标文件组装在一起，解决符号依赖，库依赖关系，并生成可执行文件</p>
-<h4 id="链接器和-ld-链接文件"><a href="#链接器和-ld-链接文件" class="headerlink" title="- 链接器和 .ld 链接文件"></a>- 链接器和 .ld 链接文件</h4><p>链接定位是系统级软件开发过程中必不可少的一部分，嵌入式软件开发均属于系统级开发，绝大部分嵌入式软件都涉及到链接定位脚本文件；链接定位脚本使得我们的目标代码组织更加灵活。<br> 链接脚本的一个主要目的是描述输入文件中的节如何被映射到输出文件中，并控制输出文件的内存排布，几乎所有的连接脚本只做这两件事情。<br>链接脚本（.ld）的编写：  </p>
-<ul>
-<li><p>MEMORY：</p>
-<p>它是用来补充SECTIONS命令的，用来描述目标CPU中可用的内存区域。它是可选的，如果没有这个命令，LD会认为SECTIONS描述的相邻的内存块之间有足够可用的内存。其实很容易理解但是却很少用（我没用过，嘿嘿），在SECTIONS中每个段的分布都没有考虑ARM能够寻址的地址中，ROM，RAM，FLASH是不是连续的。如果不是连续的怎么办？MEMORY就是设置各个区的起始位置，大小，属性的命令，在一个脚本中只能有一个。</p>
-</li>
-<li><p>SECTIONS：</p>
-<p>它是脚本文件中最重要的元素，不可缺省。它的作用就是用来描述输出文件的布局。</p>
-</li>
-<li>生成很多段，将段放在什么区域<br>.text 段：已编译程序的机器代码<br>.data段<br>.bss段等<h2 id="3-链接完成后生成可执行文件"><a href="#3-链接完成后生成可执行文件" class="headerlink" title="3. 链接完成后生成可执行文件"></a>3. 链接完成后生成可执行文件</h2></li>
-</ul>
-</li>
-</ul>
-
+              <p>嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。<br>
+          
       
     </div>
     
@@ -328,6 +371,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式/">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译，boot/">编译，boot</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2018/01/11/嵌入式系统启动简述/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

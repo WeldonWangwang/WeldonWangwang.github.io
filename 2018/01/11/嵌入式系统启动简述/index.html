@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。 1. 引导加载程序：其中包括内部ROM中的固化启动代码和Boot Loader两部分   内部固化的ROM Code是在芯片生产时固化的，作用基本上是引导bootloader    bootloader的作用：完成基本的处理器和平台的初始化，主要任务是获取并引导一个完整的操作系统，它负责定位、">
+<meta name="description" content="嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。">
 <meta name="keywords" content="嵌入式,编译，boot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="嵌入式系统启动简述">
 <meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/嵌入式系统启动简述/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
-<meta property="og:description" content="嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。 1. 引导加载程序：其中包括内部ROM中的固化启动代码和Boot Loader两部分   内部固化的ROM Code是在芯片生产时固化的，作用基本上是引导bootloader    bootloader的作用：完成基本的处理器和平台的初始化，主要任务是获取并引导一个完整的操作系统，它负责定位、">
+<meta property="og:description" content="嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-11T12:49:17.063Z">
+<meta property="og:updated_time" content="2018-01-11T12:50:54.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="嵌入式系统启动简述">
-<meta name="twitter:description" content="嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。 1. 引导加载程序：其中包括内部ROM中的固化启动代码和Boot Loader两部分   内部固化的ROM Code是在芯片生产时固化的，作用基本上是引导bootloader    bootloader的作用：完成基本的处理器和平台的初始化，主要任务是获取并引导一个完整的操作系统，它负责定位、">
+<meta name="twitter:description" content="嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -185,7 +185,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP，TCP-IP/">LwIP，TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/">UDP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式/">嵌入式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译，boot/">编译，boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP，TCP-IP/">LwIP，TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/">UDP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gcc/">gcc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/make/">make</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式/">嵌入式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译，boot/">编译，boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
                     </div>
                 </section>
                 
@@ -302,7 +302,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。</p>
+        <p>嵌入式系统的启动可以分为“引导加载程序”，“程序预处理，编译，汇编，链接”，“生成可执行文件”几个过程。<br><a id="more"></a></p>
 <h2 id="1-引导加载程序："><a href="#1-引导加载程序：" class="headerlink" title="1. 引导加载程序："></a>1. 引导加载程序：</h2><p>其中包括内部ROM中的固化启动代码和Boot Loader两部分<br>   内部固化的ROM Code是在芯片生产时固化的，作用基本上是引导bootloader  </p>
 <ul>
 <li>bootloader的作用：<br>完成基本的处理器和平台的初始化，主要任务是获取并引导一个完整的操作系统，它负责定位、载入以及将控制权移交给主操作系统。当操作系统获得控制权之后，Bootloader就会被覆盖，不复存在了。   </li>
@@ -335,7 +335,7 @@
         <p><span>本文标题:</span><a href="/2018/01/11/嵌入式系统启动简述/">嵌入式系统启动简述</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Wang Wangwang</a></p>
         <p><span>发布时间:</span>2018-01-11, 20:46:22</p>
-        <p><span>最后更新:</span>2018-01-11, 20:49:17</p>
+        <p><span>最后更新:</span>2018-01-11, 20:50:54</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/01/11/嵌入式系统启动简述/" title="嵌入式系统启动简述">http://WeldonWangwang.github.io/2018/01/11/嵌入式系统启动简述/</a>
             <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2018/01/11/嵌入式系统启动简述/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -349,6 +349,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/01/11/编译相关知识汇总/">
+                    编译相关知识汇总
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -421,7 +427,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2018/01/11/编译相关知识汇总/" title="上一篇: 编译相关知识汇总">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -433,7 +441,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/嵌入式系统启动简述/">嵌入式系统启动简述</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/网络-本地字节序转换及大小端的概念/">网络 <---> 本地字节序转换及大小端的概念</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-UDP/">LwIP-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-select/">LwIP-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-socket/">LwIP-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/编译相关知识汇总/">编译相关知识汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/嵌入式系统启动简述/">嵌入式系统启动简述</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/网络-本地字节序转换及大小端的概念/">网络 <---> 本地字节序转换及大小端的概念</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-UDP/">LwIP-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-select/">LwIP-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-socket/">LwIP-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
 
 
 

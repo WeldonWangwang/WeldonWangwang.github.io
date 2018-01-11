@@ -15,18 +15,20 @@
 
 
 
-<meta name="description" content="strcpy、strncpy与memcpy的区别与使用方法 strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。">
-<meta name="keywords" content="C">
+<meta name="description" content="着重对 make，gcc，编译，汇编，链接等进行详述。">
+<meta name="keywords" content="嵌入式,make,gcc,编译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="strcpy、strncpy与memcpy的区别与使用方法">
-<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/index.html">
+<meta property="og:title" content="编译相关知识汇总">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/编译相关知识汇总/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
-<meta property="og:description" content="strcpy、strncpy与memcpy的区别与使用方法 strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。">
+<meta property="og:description" content="着重对 make，gcc，编译，汇编，链接等进行详述。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-11T12:16:46.194Z">
+<meta property="og:image" content="https://i.imgur.com/Xc3k4eg.png">
+<meta property="og:updated_time" content="2018-01-11T12:53:34.258Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="strcpy、strncpy与memcpy的区别与使用方法">
-<meta name="twitter:description" content="strcpy、strncpy与memcpy的区别与使用方法 strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。">
+<meta name="twitter:title" content="编译相关知识汇总">
+<meta name="twitter:description" content="着重对 make，gcc，编译，汇编，链接等进行详述。">
+<meta name="twitter:image" content="https://i.imgur.com/Xc3k4eg.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +60,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>strcpy、strncpy与memcpy的区别与使用方法 | WeldonWangwang</title>
+<title>编译相关知识汇总 | WeldonWangwang</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -262,11 +264,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-strcpy、strncpy与memcpy的区别与使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-编译相关知识汇总" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/" class="article-date">
-      <time datetime="2018-01-11T12:08:28.000Z" itemprop="datePublished">2018-01-11</time>
+      <a href="/2018/01/11/编译相关知识汇总/" class="article-date">
+      <time datetime="2018-01-11T12:51:46.000Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
 
@@ -281,7 +283,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      strcpy、strncpy与memcpy的区别与使用方法
+      编译相关知识汇总
     </h1>
   
 
@@ -292,7 +294,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gcc/">gcc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/make/">make</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式/">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -302,30 +304,78 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>strcpy、strncpy与memcpy的区别与使用方法</p>
-<p>strcpy、strncpy、memcpy这三个C语言函数我们在主机代码编写中会很频繁的使用到，但是三个函数的区别、使用时该注意什么还是有必要说下的。<br><a id="more"></a><br>本文参考《C 标准库》编写。</p>
-<h2 id="一、函数说明"><a href="#一、函数说明" class="headerlink" title="一、函数说明"></a>一、函数说明</h2><h3 id="1、memcpy函数"><a href="#1、memcpy函数" class="headerlink" title="1、memcpy函数"></a>1、memcpy函数</h3><pre><code>void  *memcpy(void *s1,  const void *s2,  size_t  n);
-</code></pre><p><strong>说明：</strong></p>
-<p>函数memcpy从s2指向的对象中复制n个字符到s1指向的对象中。如果复制发生在两个重叠的对象中，则这种行为未定义。</p>
-<p><strong>返回值：</strong></p>
-<p>函数memcpy返回s1的值。</p>
-<h2 id="2、strcpy函数"><a href="#2、strcpy函数" class="headerlink" title="2、strcpy函数"></a>2、strcpy函数</h2><pre><code>char  *strcpy(char *s2, const char *s1);
-</code></pre><p><strong>说明：</strong></p>
-<p>函数strcpy把s1指向的串（包括空字符）复制到s2指向的数组中。如果复制发生在两个重叠的对象中，则这种行为未定义。</p>
-<p><strong>返回值：</strong></p>
-<p>函数strcpy返回s2的值。</p>
-<h2 id="3、strncpy函数"><a href="#3、strncpy函数" class="headerlink" title="3、strncpy函数"></a>3、strncpy函数</h2><pre><code>char  *strncpy(char *s2, const char *s1, size_t n);
-</code></pre><p><strong>说明：</strong></p>
-<p>函数strncpy从s1指向的数组中最多复制n个字符（不复制空字符后面的字符）到s2指向的数组中。如果复制发生在两个重叠的对象中，则这种行为未定义。</p>
-<p>如果s1指向的数组是一个比n短的字符串，则在s2定义的数组后面补空字符，直到写入了n个字符。</p>
-<p><strong>返回值：</strong></p>
-<p>函数strncpy返回s2的值。</p>
-<h2 id="二、注意事项"><a href="#二、注意事项" class="headerlink" title="二、注意事项"></a>二、注意事项</h2><p>strcpy 是依据 “\0” 作为结束判断的，如果 s2 的空间不够，则会引起 buffer overflow。</p>
-<p>memcpy用来在内存中复制数据，由于字符串是以“\0”结尾的，所以对于在数据中包含“\0”的数据只能用memcpy。</p>
-<p>Strncpy和memcpy很相似，只不过它在一个终止的空字符处停止。当n&gt;strlen(s1)时，给s2不够数的空间里填充“\0”；当n&lt;=strlen(s1)时，s2是没有结束符“\0”的。</p>
-<p>这里隐藏了一个事实，就是s2指向的内存一定会被写n个字符。</p>
-<p><strong>所以总的来说注意：</strong></p>
-<h5 id="1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。"><a href="#1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。" class="headerlink" title="1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。"></a>1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。</h5><h5 id="2、使用strncpy或memcpy时，n应该大于strlen-s1-，或者说最好n-gt-strlen-s1-1；这个1-就是最后的“-0”。"><a href="#2、使用strncpy或memcpy时，n应该大于strlen-s1-，或者说最好n-gt-strlen-s1-1；这个1-就是最后的“-0”。" class="headerlink" title="2、使用strncpy或memcpy时，n应该大于strlen(s1)，或者说最好n &gt;= strlen(s1)+1；这个1 就是最后的“\0”。"></a>2、使用strncpy或memcpy时，n应该大于strlen(s1)，或者说最好n &gt;= strlen(s1)+1；这个1 就是最后的“\0”。</h5><h5 id="3、使用strncpy时，确保s2的最后一个字符是“-0”。"><a href="#3、使用strncpy时，确保s2的最后一个字符是“-0”。" class="headerlink" title="3、使用strncpy时，确保s2的最后一个字符是“\0”。"></a>3、使用strncpy时，确保s2的最后一个字符是“\0”。</h5>
+        <p>着重对 make，gcc，编译，汇编，链接等进行详述。<br><a id="more"></a></p>
+<h1 id="make-相关"><a href="#make-相关" class="headerlink" title="make 相关"></a>make 相关</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ol>
+<li><p>gcc是编译一个文件，make是编译多个源文件的工程文件的工具。</p>
+</li>
+<li><p>make是一个命令工具，是一个解释makefile中指令的命令工具，一般来说，大多数的IDE都有这个命令，比如：Delphi的make，Visual C++的nmake，Linux下GNU的make。可见，makefile都成为了一种在工程方面的编译方法。</p>
+</li>
+<li><p>make就是按照makefile脚本对整个项目的各个文件进行分别编译和链接,makefile基本上就是”目标”(target),”关连”(dependencies)   和”动作”三者所组成的脚本。makefile 文件是许多编译器–包括 Windows NT 下的编译器–维护编译信息的常用方法，只是在集成开发环境中，用户通过友好的界面修改 makefile 文件而已。make除了可以做到编译和连结，也可以把如何产生文档(如manual  page,   info档及   dvi 档)   ，以及打包压缩都完成。</p>
+</li>
+<li><p>make 可以说是一个批处理程序，它可以自动编译多个文件。当然写好的脚本是前提。MAKE是运用GCC去编译文件的。</p>
+</li>
+<li><p>Makefile文件作为一种描述文档一般需要包含以下内容:</p>
+<ul>
+<li><p>宏定义</p>
+</li>
+<li><p>源文件之间的相互依赖关系</p>
+</li>
+<li><p>可执行的命令  </p>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>gcc 命令： gcc 参数 -o 目标
+</code></pre><h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><pre><code>gcc -E hello.c -o hello.i
+</code></pre><p>作用：预处理器是在真正的编译开始之前由编译器调用的独立程序。预处理器可以删除注释、包含其他文件以及执行宏（宏macro是一段重复文字的简短描写）替代。  </p>
+<h2 id="编译为汇编代码"><a href="#编译为汇编代码" class="headerlink" title="编译为汇编代码"></a>编译为汇编代码</h2><pre><code>gcc -S hello.i -o hello.s
+</code></pre><p>作用：是预处理之后，可直接对生成的hello.i文件编译，生成汇编代码。</p>
+<h2 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h2><pre><code>gcc -c hello.s -o hello.o
+</code></pre><p>作用：汇编器对于上一小节中生成的汇编代码文件hello.s，gas汇编器负责将其编译为目标文件.o<br>这一步将程序划分为若干段（数据段，代码段等），可以用objdump命令来查看这些目标文件的内容</p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><pre><code>gcc hello.o -o hello
+</code></pre><p>作用：连接器的目的主要是进行重定位和符号解析，gcc连接器是gas提供的，负责将程序的目标文件与所需的所有附加的目标文件连接起来，最终生成可执行文件。附加的目标文件包括静态连接库和动态连接库。  </p>
+<p>我们有了Linux OS，为了运行可执行文件，他们是遵循ELF格式的，通常gcc -o test test.c，生成的test文件就是ELF格式的，这样就可以运行了。<br>接着将boot.elf-&gt;boot.bin，这样可以缩小代码尺寸。  </p>
+<h4 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h4><p>链接器链接的过程，就是将几个输入的目标文件加工后合并成一个输出文件。合并的方法简单来说，就是将相同性质的段合并到一起，比如将输入文件的.text段合并到.text段，接着是.data段、.bss段等，如下图所示：  </p>
+<p><img src="https://i.imgur.com/Xc3k4eg.png" alt="">  </p>
+<p>链接器一般采用一种叫做两步链接的方法：  </p>
+<ul>
+<li>空间与地址分配。链接器扫描所有的输入目标文件，将它们的段进行合并，计算出输出文件中各个段合并后的长度和位置，建立映射关系；并且将输入目标文件的符号表中的所有符号定义和符号引用收集起来，统一放到一个全局的符号表。  </li>
+<li>符号解析和重定位。使用上一步收集到的所有信息，读取输入文件中段的数据、重定位信息，并且进行符号解析与重定位、调整代码中的位置等，这一步是链接过程的核心。  </li>
+</ul>
+<h4 id="ld-链接文件"><a href="#ld-链接文件" class="headerlink" title="ld 链接文件"></a>ld 链接文件</h4><p>连接脚本是文本文件.</p>
+<p>你写了一系列的命令作为一个连接脚本. 每一个命令是一个带有参数的关键字,或者是一个对符号的赋值. 你可以用分号分隔命令. 空格一般被忽略.</p>
+<p>文件名或格式名之类的字符串一般可以被直接键入. 如果文件名含有特殊字符,比如一般作为分隔文件名用的逗号, 你可以把文件名放到双引号中. 文件名中间无法使用双引号.</p>
+<p>你可以象在C语言中一样,在连接脚本中使用注释, 用’/<em>‘和’</em>/‘隔开. 就像在C中,注释在语法上等同于空格. </p>
+<p>参考： blog.csdn.net/wtbcx2012/article/details/45508113  </p>
+<p>在介绍链接描述文件的命令之前, 先看看下述的简单例子:<br>以下脚本将输出文件的text section定位在0×10000, data section定位在0×8000000:</p>
+<pre><code>SECTIONS
+{
+  .= 0×10000;
+  .text : { *(.text) }
+  .= 0×8000000;
+  .data : { *(.data) }
+  .bss : { *(.bss) }
+}
+</code></pre><p>解释一下上述的例子:</p>
+<p> . = 0×10000 : 把定位器符号置为0×10000 (若不指定, 则该符号的初始值为0).<br> .text : { <em>(.text) } : 将所有(</em>符号代表任意输入文件)输入文件的.text section合并成一个.text section, 该section的地址由定位器符号的值指定, 即0×10000.<br> . = 0×8000000 ：把定位器符号置为0×8000000<br> .data : { <em>(.data) } : 将所有输入文件的.data section合并成一个.data section, 该section的地址被置为0×8000000.<br> .bss : { </em>(.bss) } : 将所有输入文件的.bss section合并成一个.bss section，该section的地址被置为0×8000000+.data section的大小.  </p>
+<p>连接器每读完一个section描述后, 将定位器符号的值<em>增加</em>该section的大小. 注意: 此处没有考虑对齐约束.  </p>
+<ul>
+<li><p>SECTIONS命令<br>SECTIONS命令告诉ld如何把输入文件的sections映射到输出文件的各个section: 如何将输入section合为输出section; 如何把输出section放入程序地址空间(VMA)和进程地址空间(LMA).  </p>
+</li>
+<li><p>内存区域命令<br>注意：以下存储区域指的是在程序地址空间内的。   </p>
+<p>在默认情形下，连接器可以为section分配任意位置的存储区域。你也可以用MEMORY命令定义存储区域，并通过输出section描述的&gt; REGION属性显示地将该输出section限定于某块存储区域，当存储区域大小不能满足要求时，连接器会报告该错误。   </p>
+</li>
+</ul>
+<p>MEMORY命令的文法如下，</p>
+<pre><code>MEMORY {
+NAME1 [(ATTR)] : ORIGIN = ORIGIN1, LENGTH = LEN2
+NAME2 [(ATTR)] : ORIGIN = ORIGIN2, LENGTH = LEN2
+…
+}
+</code></pre><p>NAME ：存储区域的名字，这个名字可以与符号名、文件名、section名重复，因为它处于一个独立的名字空间。 </p>
+<p>ATTR ：定义该存储区域的属性，在讲述SECTIONS命令时提到，当某输入section没有在SECTIONS命令内引用时，连接器会把该输入 section直接拷贝成输出section，然后将该输出section放入内存区域内。如果设置了内存区域设置了ATTR属性，那么该区域只接受满足该属性的 section(怎么判断该section是否满足？输出section描述内好象没有记录该section的读写执行属性)。  </p>
+<p>ATTR属性内可以出现以下7个字符，<br>R 只读section<br>W 读/写section<br>X 可执行section<br>A ‘可分配的’section<br>I 初始化了的section<br>L 同I<br>! 不满足该字符之后的任何一个属性的section<br>ORIGIN ：关键字，区域的开始地址，可简写成org或o<br>LENGTH ：关键字，区域的大小，可简写成len或l  </p>
+
       
     </div>
     
@@ -333,13 +383,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></p>
+        <p><span>本文标题:</span><a href="/2018/01/11/编译相关知识汇总/">编译相关知识汇总</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Wang Wangwang</a></p>
-        <p><span>发布时间:</span>2018-01-11, 20:08:28</p>
-        <p><span>最后更新:</span>2018-01-11, 20:16:46</p>
+        <p><span>发布时间:</span>2018-01-11, 20:51:46</p>
+        <p><span>最后更新:</span>2018-01-11, 20:53:34</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/" title="strcpy、strncpy与memcpy的区别与使用方法">http://WeldonWangwang.github.io/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/01/11/编译相关知识汇总/" title="编译相关知识汇总">http://WeldonWangwang.github.io/2018/01/11/编译相关知识汇总/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2018/01/11/编译相关知识汇总/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -351,16 +401,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/01/11/LwIP-socket/">
-                    LwIP-socket
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">
-                    基于 ESP32 和 OneNET 的人流量检测及数据云端统计
+                <a href="/2018/01/11/嵌入式系统启动简述/">
+                    嵌入式系统启动简述
                 </a>
             </div>
         
@@ -372,7 +416,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、函数说明"><span class="toc-number">1.</span> <span class="toc-text">一、函数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、memcpy函数"><span class="toc-number">1.1.</span> <span class="toc-text">1、memcpy函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、strcpy函数"><span class="toc-number">2.</span> <span class="toc-text">2、strcpy函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、strncpy函数"><span class="toc-number">3.</span> <span class="toc-text">3、strncpy函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、注意事项"><span class="toc-number">4.</span> <span class="toc-text">二、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">1、s2指向的空间要足够拷贝；使用strcpy时，s2指向的空间要大于等于s1指向的空间；使用strncpy或memcpy时，s2指向的空间要大于或等于n。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2、使用strncpy或memcpy时，n应该大于strlen-s1-，或者说最好n-gt-strlen-s1-1；这个1-就是最后的“-0”。"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">2、使用strncpy或memcpy时，n应该大于strlen(s1)，或者说最好n >= strlen(s1)+1；这个1 就是最后的“\0”。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3、使用strncpy时，确保s2的最后一个字符是“-0”。"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">3、使用strncpy时，确保s2的最后一个字符是“\0”。</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#make-相关"><span class="toc-number">1.</span> <span class="toc-text">make 相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#预处理"><span class="toc-number">1.2.</span> <span class="toc-text">预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译为汇编代码"><span class="toc-number">1.3.</span> <span class="toc-text">编译为汇编代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#汇编"><span class="toc-number">1.4.</span> <span class="toc-text">汇编</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#链接"><span class="toc-number">1.5.</span> <span class="toc-text">链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#静态链接"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">静态链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ld-链接文件"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">ld 链接文件</span></a></li></ol></li></ol></li></ol></li></ol>
         
     </div>
     <style>
@@ -408,7 +452,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"strcpy、strncpy与memcpy的区别与使用方法　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"编译相关知识汇总　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -428,15 +472,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/01/11/LwIP-socket/" title="上一篇: LwIP-socket">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/" title="下一篇: 基于 ESP32 和 OneNET 的人流量检测及数据云端统计">
+            <a href="/2018/01/11/嵌入式系统启动简述/" title="下一篇: 嵌入式系统启动简述">
                 <i class="fa fa-angle-right"></i>
             </a>
         
