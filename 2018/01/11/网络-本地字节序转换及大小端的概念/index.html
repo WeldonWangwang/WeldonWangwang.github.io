@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Wang Wangwang" />
+
+
+
+<meta name="description" content="大端（Big-Endian），小端（Little-Endian）以及网络字节序的概念在编程中经常会遇到，所以在这里对大小端的概念和常见的使用进行说明。">
+<meta name="keywords" content="LwIP，TCP&#x2F;IP,net,网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络 &lt;---&gt; 本地字节序转换及大小端的概念">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/网络-本地字节序转换及大小端的概念/index.html">
+<meta property="og:site_name" content="WeldonWangwang">
+<meta property="og:description" content="大端（Big-Endian），小端（Little-Endian）以及网络字节序的概念在编程中经常会遇到，所以在这里对大小端的概念和常见的使用进行说明。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-11T12:45:10.225Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络 &lt;---&gt; 本地字节序转换及大小端的概念">
+<meta name="twitter:description" content="大端（Big-Endian），小端（Little-Endian）以及网络字节序的概念在编程中经常会遇到，所以在这里对大小端的概念和常见的使用进行说明。">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="WeldonWangwang" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>网络 &lt;---&gt; 本地字节序转换及大小端的概念 | WeldonWangwang</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Wang Wangwang</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:17621766966@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/WeldonWangwang" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/yu-shang-zui-yue-49?utm_source=wechat_session&utm_medium=social&from=singlemessage" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP，TCP-IP/">LwIP，TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/">UDP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">嵌入式软件开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Wang Wangwang</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Wang Wangwang</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:17621766966@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/WeldonWangwang" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/yu-shang-zui-yue-49?utm_source=wechat_session&utm_medium=social&from=singlemessage" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-网络-本地字节序转换及大小端的概念" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/11/网络-本地字节序转换及大小端的概念/" class="article-date">
+      <time datetime="2018-01-11T12:42:33.000Z" itemprop="datePublished">2018-01-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      网络 &lt;---&gt; 本地字节序转换及大小端的概念
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LwIP，TCP-IP/">LwIP，TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/net/">net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>大端（Big-Endian），小端（Little-Endian）以及网络字节序的概念在编程中经常会遇到，所以在这里对大小端的概念和常见的使用进行说明。<br><a id="more"></a></p>
+<h2 id="大小端"><a href="#大小端" class="headerlink" title="大小端"></a>大小端</h2><p> 大端（Big-Endian），小端（Little-Endian）以及网络字节序的概念在编程中经常会遇到，其中网络字节序(Network Byte Order)一般是指大端（Big-Endian，对大部分网络传输协议而言）传输，大端小端的概念是面向多字节数据类型的存储方式定义的，小端就是低位在前（低位字节存在内存低地址，字节高低顺序和内存高低地址顺序相同），大端就是高位在前，（其中“前”是指靠近内存低地址，存储在硬盘上就是先写那个字节）。概念上字节序也叫主机序。  </p>
+<h4 id="一、大小端概念"><a href="#一、大小端概念" class="headerlink" title="一、大小端概念"></a>一、大小端概念</h4><p>1、首先大小端是面向多字节类型定义的，比如2字节、4字节、8字节整型、长整型、浮点型等，单字节的字符串一般不用考虑。</p>
+<p>2、大端小端存储、传输、以及接收处理需要对应。</p>
+<p>3、大端（Big-Endian）就是高字节（MSB）在前，内存存储体现上，数据的高位更加靠近低地址。</p>
+<p>4、小端(Little-Endian)就是低字节（LSB）在前，内存存储体现上，数据的低位更加靠近低地址。</p>
+<p>5、网络字节序一般是指大端传输。</p>
+<h4 id="二、大小端存储示例"><a href="#二、大小端存储示例" class="headerlink" title="二、大小端存储示例"></a>二、大小端存储示例</h4><p>假设一个32位 unsigned int型数据0x12 34 56 78，大小端8位存储方式如下：</p>
+<pre><code>大端存储方式为0x12 34 56 78
+小端存储方式为0x78 56 34 12
+</code></pre><h4 id="三、常见CPU的大小端存储方式"><a href="#三、常见CPU的大小端存储方式" class="headerlink" title="三、常见CPU的大小端存储方式"></a>三、常见CPU的大小端存储方式</h4><p>不同CPU有不同的字节序类型，典型的使用小端存储的CPU有：Intel x86和ARM</p>
+<p>典型的使用大端存储CPU有：Power PC、MIPS UNIX和HP-PA UNIX</p>
+<p>注：</p>
+<p>以上CPU需根据具体型号查询手册，有的CPU甚至可能同时能支持两种存储方式。</p>
+<p>上文说的网络字节顺序则是表示网络传输时的字节序，按照TCP/IP协议是按照大端传输方式，也就是高字节先走（先传12，接着34，56，78），这跟本机存储和服务器存储没有关系，只要确保双方解析对应即可。  </p>
+<h2 id="网络字节序和本地的转换（大小端转换）"><a href="#网络字节序和本地的转换（大小端转换）" class="headerlink" title="网络字节序和本地的转换（大小端转换）"></a>网络字节序和本地的转换（大小端转换）</h2><pre><code>htonl()--&quot;Host to Network Long&quot;
+ntohl()--&quot;Network to Host Long&quot;
+htons()--&quot;Host to Network Short&quot;
+ntohs()--&quot;Network to Host Short&quot;
+</code></pre><p>之所以需要这些函数是因为计算机数据表示存在两种字节顺序：NBO与HBO，上述即网络的 <code>大端</code> 和 本地的 <code>小端</code> 的转换；<br>当然，也有本地是 <code>大端</code> 的机器。</p>
+<p>网络字节顺序NBO(Network Byte Order): 按从高到低的顺序存储，在网络上使用统一的网络字节顺序，可以避免兼容性问题。</p>
+<p>主机字节顺序(HBO，Host Byte Order): 不同的机器HBO不相同，与CPU设计有关，数据的顺序是由cpu决定的,而与操作系统无关。<br>如 Intel x86结构下, short型数0x1234表示为34 12, int型数0x12345678表示为78 56 34 12<br>如 IBM power PC结构下, short型数0x1234表示为12 34, int型数0x12345678表示为12 34 56 78</p>
+<p>由于这个原因不同体系结构的机器之间无法通信,所以要转换成一种约定的数序,也就是网络字节顺序,其实就是如同power pc那样的顺序. 在PC开发中有ntohl和htonl函数可以用来进行网络字节和主机字节的转换.<br>在Linux系统下：htonl(),htons(), ntohl(), ntohs()的头文件及函数定义：    </p>
+<h4 id="ntohs"><a href="#ntohs" class="headerlink" title="ntohs()"></a>ntohs()</h4><p>简述：<br>  将一个无符号短整形数从网络字节顺序转换为主机字节顺序。  </p>
+<pre><code>#include &lt;winsock.h&gt; 
+u_short PASCAL FAR ntohs( u_short netshort);   
+netshort：一个以网络字节顺序表达的16位数。     
+</code></pre><p>注释： </p>
+<p>  本函数将一个16位数由网络字节顺序转换为主机字节顺序。   </p>
+<p>返回值：<br>ntohs()返回一个以主机字节顺序表达的数。  </p>
+<h4 id="ntohl"><a href="#ntohl" class="headerlink" title="ntohl()"></a>ntohl()</h4><p>简述：<br>  将一个无符号长整形数从网络字节顺序转换为主机字节顺序。     </p>
+<pre><code>＃include &lt;winsock.h&gt; 
+u_long PASCAL FAR ntohl( u_long netlong);
+netlong：一个以网络字节顺序表达的32位数。  
+</code></pre><p>注释：   </p>
+<p>  本函数将一个32位数由网络字节顺序转换为主机字节顺序。     </p>
+<p>返回值：   </p>
+<p>  ntohl()返回一个以主机字节顺序表达的数。   </p>
+<h4 id="htons"><a href="#htons" class="headerlink" title="htons()"></a>htons()</h4><p>简述：<br>  将主机的无符号短整形数转换成网络字节顺序。  </p>
+<pre><code>#include &lt;winsock.h&gt; 
+u_short PASCAL FAR htons( u_short hostshort);   
+hostshort：主机字节顺序表达的16位数。   
+</code></pre><p>  注释：   </p>
+<p>  本函数将一个16位数从主机字节顺序转换成网络字节顺序。   </p>
+<p>  返回值：   </p>
+<p>  htons()返回一个网络字节顺序的值。<br>  简单地说,htons()就是将一个数的高低位互换   (如:12 34 –&gt; 34 12)<br>  VB表示:<br>  MsgBox Hex(htons(&amp;H1234))   显示值为 3412  </p>
+<h4 id="htonl"><a href="#htonl" class="headerlink" title="htonl()"></a>htonl()</h4><p>  简述：   </p>
+<p>  将主机的无符号长整形数转换成网络字节顺序。</p>
+<pre><code>#include &lt;winsock.h&gt; 
+u_long PASCAL FAR htonl( u_long hostlong); 
+hostlong：主机字节顺序表达的32位数。 
+</code></pre><p>  注释：   </p>
+<p>  本函数将一个32位数从主机字节顺序转换成网络字节顺序。     </p>
+<p>  返回值：<br>  htonl()返回一个网络字节顺序的值。     </p>
+<h4 id="inet-addr"><a href="#inet-addr" class="headerlink" title="inet_addr()"></a>inet_addr()</h4><p>简述：   </p>
+<p>  inet_addr是一个计算机函数，功能是将一个点分十进制的IP转换成一个长整数型数（u_long类型）等同于inet_addr()。</p>
+<pre><code>#include &lt;winsock.h&gt; 
+unsigned long PASCAL FAR inet_addr( const struct FAR* cp); 
+cp：一个以Internet标准“.”间隔的字符串。  
+</code></pre><p>  例如202.38.214.xx   当IP地址为255.255.255.255是被认为无效IP地址。<br>  本函数解释cp参数中的字符串，这个字符串用Internet的“.”间隔格式表示一个数字的Internet地址。   </p>
+<p>  返回值：   </p>
+<p>  一个无符号长整形数，可用作Internet地址。所有Internet地址以网络字节顺序返回(字节从左到右排列)。<br>e.g.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">in_addr_t inet_addr(const char* strptr);</div><div class="line">返回：若字符串有效则将字符串转换为32位二进制网络字节序的IPV4地址，否则为INADDR_NONE</div><div class="line">struct in_addr&#123;</div><div class="line">in_addr_t s_addr;</div><div class="line">&#125;</div><div class="line">所处头文件: #include &lt;arpa/inet.h&gt;</div><div class="line">例子：</div><div class="line">daddr.s_addr=inet_addr(&quot;192.168.1.60&quot;);</div></pre></td></tr></table></figure></p>
+<h4 id="inet-ntoa"><a href="#inet-ntoa" class="headerlink" title="inet_ntoa()"></a>inet_ntoa()</h4><p>简述：<br>  将网络地址转换成“.”点隔的字符串格式。     </p>
+<pre><code>#include &lt;winsock.h&gt; 
+char FAR* PASCAL FAR inet_ntoa( struct in_addr in); 
+in：一个表示Internet主机地址的结构。  
+</code></pre><p> 注释：   </p>
+<p>  本函数将一个用in参数所表示的Internet地址结构转换成以“.” 间隔的诸如“a.b.c.d”的字符串形式。请注意inet_ntoa()返回的字符串存放在WINDOWS套接口实现所分配的内存中。应用程序不应假设该内存是如何分配的。在同一个线程的下一个WINDOWS套接口调用前，数据将保证是有效。<br>  当IP地址为255.255.255.255是认为有效IP地址。这是与inet_addr()的区别      </p>
+<p> 返回值：   </p>
+<p>  若无错误发生，inet_ntoa()返回一个字符指针。否则的话，返回NULL。其中的数据应在下一个WINDOWS套接口调用前复制出来。<br>  inet_aton()   与inet_ntoa()作用相反。   </p>
+<p>e.g.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SOCKADDR_IN addrSrv;</div><div class="line">addrSrv.sin_addr.S_un.S_addr=inet_addr(&quot;127.0.0.1&quot;);</div><div class="line">char recvBuf[100];</div><div class="line">char tempBuf[100];</div><div class="line">sprintf(tempBuf,&quot;%s say: %s&quot;,inet_ntoa(addrSrv.sin_addr),recvBuf);</div><div class="line">//将sin_addr储存的IP（数值）转换成字符串形式(127.0.0.1)。</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">int main()</div><div class="line">&#123;</div><div class="line">        char str[]=&quot;255.255.255.255&quot;;</div><div class="line">        in_addr_t r1,r2,r3;</div><div class="line">        struct in_addr inp;</div><div class="line">        r1=inet_addr(str);</div><div class="line">        if(r1==-1)&#123;</div><div class="line">                printf(&quot;inet_addr return -1 when 255.255.255.255\n&quot;);</div><div class="line">        &#125;else&#123;</div><div class="line">                printf(&quot;inet_addr:ip=%lu\n&quot;,ntohl(r1));</div><div class="line">        &#125;</div><div class="line">        r2=inet_network(str);</div><div class="line">        if(r2==-1)&#123;</div><div class="line">                printf(&quot;inet_network return -1 when 255.255.255.255\n&quot;);</div><div class="line">        &#125;else&#123;</div><div class="line">                printf(&quot;inet_network:ip=%lu\n&quot;,r2);</div><div class="line">        &#125;</div><div class="line">        r3=inet_aton(str,&amp;inp);</div><div class="line">        if(r3==0)&#123;</div><div class="line">                printf(&quot;inet_aton return -1 when 255.255.255.255\n&quot;);</div><div class="line">        &#125;else&#123;</div><div class="line">                printf(&quot;inet_aton:ip=%lu\n&quot;,ntohl(inp.s_addr));</div><div class="line">        &#125;</div><div class="line">        return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/01/11/网络-本地字节序转换及大小端的概念/">网络 &lt;---&gt; 本地字节序转换及大小端的概念</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Wang Wangwang</a></p>
+        <p><span>发布时间:</span>2018-01-11, 20:42:33</p>
+        <p><span>最后更新:</span>2018-01-11, 20:45:10</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/01/11/网络-本地字节序转换及大小端的概念/" title="网络 &lt;---&gt; 本地字节序转换及大小端的概念">http://WeldonWangwang.github.io/2018/01/11/网络-本地字节序转换及大小端的概念/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://WeldonWangwang.github.io/2018/01/11/网络-本地字节序转换及大小端的概念/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/01/11/LwIP-UDP/">
+                    LwIP-UDP
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#大小端"><span class="toc-number">1.</span> <span class="toc-text">大小端</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、大小端概念"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、大小端概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、大小端存储示例"><span class="toc-number">1.0.2.</span> <span class="toc-text">二、大小端存储示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、常见CPU的大小端存储方式"><span class="toc-number">1.0.3.</span> <span class="toc-text">三、常见CPU的大小端存储方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络字节序和本地的转换（大小端转换）"><span class="toc-number">2.</span> <span class="toc-text">网络字节序和本地的转换（大小端转换）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ntohs"><span class="toc-number">2.0.1.</span> <span class="toc-text">ntohs()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ntohl"><span class="toc-number">2.0.2.</span> <span class="toc-text">ntohl()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#htons"><span class="toc-number">2.0.3.</span> <span class="toc-text">htons()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#htonl"><span class="toc-number">2.0.4.</span> <span class="toc-text">htonl()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#inet-addr"><span class="toc-number">2.0.5.</span> <span class="toc-text">inet_addr()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#inet-ntoa"><span class="toc-number">2.0.6.</span> <span class="toc-text">inet_ntoa()</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"网络 <---> 本地字节序转换及大小端的概念　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/01/11/LwIP-UDP/" title="下一篇: LwIP-UDP">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/网络-本地字节序转换及大小端的概念/">网络 <---> 本地字节序转换及大小端的概念</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-UDP/">LwIP-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-select/">LwIP-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-socket/">LwIP-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 Wang Wangwang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
