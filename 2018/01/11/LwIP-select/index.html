@@ -16,15 +16,16 @@
 
 
 <meta name="description" content="select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。">
+<meta name="keywords" content="LwIP,select">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lwip-select">
-<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/lwip-select/index.html">
+<meta property="og:title" content="LwIP-select">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/LwIP-select/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
 <meta property="og:description" content="select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-11T12:32:59.127Z">
+<meta property="og:updated_time" content="2018-01-11T12:38:12.705Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lwip-select">
+<meta name="twitter:title" content="LwIP-select">
 <meta name="twitter:description" content="select()，本函数用于确定一个或多个套接口的状态，对每一个套接口，调用者可查询它的可读性、可写性及错误状态信息，用fd_set结构来表示一组等待检查的套接口，在调用返回时，这个结构存有满足一定条件的套接口组的子集，并且select()返回满足条件的套接口的数目。有一组宏可用于对fd_set的操作。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -57,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>lwip-select | WeldonWangwang</title>
+<title>LwIP-select | WeldonWangwang</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -184,7 +185,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/">UDP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li></ul>
                     </div>
                 </section>
                 
@@ -261,11 +262,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-lwip-select" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-LwIP-select" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/01/11/lwip-select/" class="article-date">
-      <time datetime="2018-01-11T12:30:27.000Z" itemprop="datePublished">2018-01-11</time>
+      <a href="/2018/01/11/LwIP-select/" class="article-date">
+      <time datetime="2018-01-11T12:37:03.000Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
 
@@ -280,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      lwip-select
+      LwIP-select
     </h1>
   
 
@@ -290,6 +291,10 @@
         
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/select/">select</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -374,13 +379,13 @@ vTaskDelete(NULL);
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2018/01/11/lwip-select/">lwip-select</a></p>
+        <p><span>Title:</span><a href="/2018/01/11/LwIP-select/">LwIP-select</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">Wang Wangwang</a></p>
-        <p><span>Created:</span>2018-01-11, 20:30:27</p>
-        <p><span>Updated:</span>2018-01-11, 20:32:59</p>
+        <p><span>Created:</span>2018-01-11, 20:37:03</p>
+        <p><span>Updated:</span>2018-01-11, 20:38:12</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2018/01/11/lwip-select/" title="lwip-select">http://WeldonWangwang.github.io/2018/01/11/lwip-select/</a>
-            <span class="copy-path" data-clipboard-text="From http://WeldonWangwang.github.io/2018/01/11/lwip-select/　　By Wang Wangwang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2018/01/11/LwIP-select/" title="LwIP-select">http://WeldonWangwang.github.io/2018/01/11/LwIP-select/</a>
+            <span class="copy-path" data-clipboard-text="From http://WeldonWangwang.github.io/2018/01/11/LwIP-select/　　By Wang Wangwang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -393,15 +398,15 @@ vTaskDelete(NULL);
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/01/11/lwip-UDP/">
-                    lwip-UDP
+                <a href="/2018/01/11/LwIP-UDP/">
+                    LwIP-UDP
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/01/11/lwip-socket/">
-                    lwip-socket
+                <a href="/2018/01/11/LwIP-socket/">
+                    LwIP-socket
                 </a>
             </div>
         
@@ -449,7 +454,7 @@ vTaskDelete(NULL);
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"lwip-select　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"LwIP-select　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -469,7 +474,7 @@ vTaskDelete(NULL);
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/01/11/lwip-UDP/" title="Pre: lwip-UDP">
+            <a href="/2018/01/11/LwIP-UDP/" title="Pre: LwIP-UDP">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -477,13 +482,13 @@ vTaskDelete(NULL);
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/01/11/lwip-socket/" title="Next: lwip-socket">
+            <a href="/2018/01/11/LwIP-socket/" title="Next: LwIP-socket">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-UDP/">lwip-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-select/">lwip-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-socket/">lwip-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-UDP/">LwIP-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-select/">LwIP-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-socket/">LwIP-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
 
 
 

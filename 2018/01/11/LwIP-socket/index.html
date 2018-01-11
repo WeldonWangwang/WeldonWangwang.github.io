@@ -15,19 +15,19 @@
 
 
 
-<meta name="description" content="LwIP socket建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
+<meta name="description" content="建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
 <meta name="keywords" content="LwIP,socket">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lwip-socket">
-<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/lwip-socket/index.html">
+<meta property="og:title" content="LwIP-socket">
+<meta property="og:url" content="http://WeldonWangwang.github.io/2018/01/11/LwIP-socket/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
-<meta property="og:description" content="LwIP socket建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
+<meta property="og:description" content="建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://i.imgur.com/v8v0rla.png">
-<meta property="og:updated_time" content="2018-01-11T12:23:49.702Z">
+<meta property="og:updated_time" content="2018-01-11T12:39:07.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lwip-socket">
-<meta name="twitter:description" content="LwIP socket建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
+<meta name="twitter:title" content="LwIP-socket">
+<meta name="twitter:description" content="建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。">
 <meta name="twitter:image" content="http://i.imgur.com/v8v0rla.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -60,7 +60,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>lwip-socket | WeldonWangwang</title>
+<title>LwIP-socket | WeldonWangwang</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -187,7 +187,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESP32/">ESP32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQTT/">MQTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNET/">OneNET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/">UDP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wi-Fi/">Wi-Fi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量检测/">流量检测</a></li></ul>
                     </div>
                 </section>
                 
@@ -264,11 +264,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-lwip-socket" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-LwIP-socket" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/01/11/lwip-socket/" class="article-date">
-      <time datetime="2018-01-11T12:21:21.000Z" itemprop="datePublished">2018-01-11</time>
+      <a href="/2018/01/11/LwIP-socket/" class="article-date">
+      <time datetime="2018-01-11T12:36:53.000Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
 
@@ -283,7 +283,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      lwip-socket
+      LwIP-socket
     </h1>
   
 
@@ -304,7 +304,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="LwIP-socket"><a href="#LwIP-socket" class="headerlink" title="LwIP socket"></a>LwIP socket</h1><p>建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。<br><a id="more"></a></p>
+        <p>建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口；HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。<br><a id="more"></a></p>
 <hr>
 <ul>
 <li>LwIP–&gt;TCP/IP的一种实现</li>
@@ -462,13 +462,13 @@ flags：调用执行方式。
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2018/01/11/lwip-socket/">lwip-socket</a></p>
+        <p><span>Title:</span><a href="/2018/01/11/LwIP-socket/">LwIP-socket</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">Wang Wangwang</a></p>
-        <p><span>Created:</span>2018-01-11, 20:21:21</p>
-        <p><span>Updated:</span>2018-01-11, 20:23:49</p>
+        <p><span>Created:</span>2018-01-11, 20:36:53</p>
+        <p><span>Updated:</span>2018-01-11, 20:39:07</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2018/01/11/lwip-socket/" title="lwip-socket">http://WeldonWangwang.github.io/2018/01/11/lwip-socket/</a>
-            <span class="copy-path" data-clipboard-text="From http://WeldonWangwang.github.io/2018/01/11/lwip-socket/　　By Wang Wangwang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2018/01/11/LwIP-socket/" title="LwIP-socket">http://WeldonWangwang.github.io/2018/01/11/LwIP-socket/</a>
+            <span class="copy-path" data-clipboard-text="From http://WeldonWangwang.github.io/2018/01/11/LwIP-socket/　　By Wang Wangwang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -481,8 +481,8 @@ flags：调用执行方式。
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/01/11/lwip-select/">
-                    lwip-select
+                <a href="/2018/01/11/LwIP-select/">
+                    LwIP-select
                 </a>
             </div>
         
@@ -501,7 +501,7 @@ flags：调用执行方式。
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LwIP-socket"><span class="toc-number">1.</span> <span class="toc-text">LwIP socket</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SOCKET"><span class="toc-number">1.1.</span> <span class="toc-text">SOCKET()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#套接字："><span class="toc-number">1.1.1.</span> <span class="toc-text">套接字：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型："><span class="toc-number">1.1.2.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#server-addr-sin-addr-s-addr-htonl-INADDR-ANY"><span class="toc-number">1.2.</span> <span class="toc-text">server_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bind"><span class="toc-number">1.3.</span> <span class="toc-text">bind()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型：-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listen"><span class="toc-number">1.4.</span> <span class="toc-text">listen()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型：-2"><span class="toc-number">1.4.1.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#accept"><span class="toc-number">1.5.</span> <span class="toc-text">accept()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recv"><span class="toc-number">1.6.</span> <span class="toc-text">recv()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recvfrom"><span class="toc-number">1.7.</span> <span class="toc-text">recvfrom()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sendto"><span class="toc-number">1.8.</span> <span class="toc-text">sendto()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#send"><span class="toc-number">1.9.</span> <span class="toc-text">send()</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SOCKET"><span class="toc-number">1.</span> <span class="toc-text">SOCKET()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#套接字："><span class="toc-number">1.1.</span> <span class="toc-text">套接字：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型："><span class="toc-number">1.2.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#server-addr-sin-addr-s-addr-htonl-INADDR-ANY"><span class="toc-number">2.</span> <span class="toc-text">server_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bind"><span class="toc-number">3.</span> <span class="toc-text">bind()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型：-1"><span class="toc-number">3.1.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listen"><span class="toc-number">4.</span> <span class="toc-text">listen()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数原型：-2"><span class="toc-number">4.1.</span> <span class="toc-text">函数原型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#accept"><span class="toc-number">5.</span> <span class="toc-text">accept()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recv"><span class="toc-number">6.</span> <span class="toc-text">recv()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recvfrom"><span class="toc-number">7.</span> <span class="toc-text">recvfrom()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sendto"><span class="toc-number">8.</span> <span class="toc-text">sendto()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#send"><span class="toc-number">9.</span> <span class="toc-text">send()</span></a></li></ol>
         
     </div>
     <style>
@@ -537,7 +537,7 @@ flags：调用执行方式。
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"lwip-socket　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"LwIP-socket　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -557,7 +557,7 @@ flags：调用执行方式。
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/01/11/lwip-select/" title="Pre: lwip-select">
+            <a href="/2018/01/11/LwIP-select/" title="Pre: LwIP-select">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -571,7 +571,7 @@ flags：调用执行方式。
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-UDP/">lwip-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-select/">lwip-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/lwip-socket/">lwip-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-UDP/">LwIP-UDP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-select/">LwIP-select</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/LwIP-socket/">LwIP-socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/strcpy、strncpy与memcpy的区别与使用方法/">strcpy、strncpy与memcpy的区别与使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/10/基于-ESP32-和-OneNET-的人流量检测及数据云端统计-md/">基于 ESP32 和 OneNET 的人流量检测及数据云端统计</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ESP32-实现-FTP-server/">ESP32 实现 FTP-server</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/ubuntu-部署-hexo/">ubuntu 部署 hexo</a></li></ul>
 
 
 
