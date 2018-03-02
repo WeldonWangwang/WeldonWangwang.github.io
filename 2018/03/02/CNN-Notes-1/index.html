@@ -15,18 +15,22 @@
 
 
 
-<meta name="description" content="UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。">
-<meta name="keywords" content="LwIP,UDP,TCP&#x2F;IP">
+<meta name="description" content="卷积神经网络(Convolutional Neural Network, CNN)是深度学习技术中极具代表的网络结构之一，在图像处理领域取得了很大的成功，在国际标准的ImageNet数据集上，许多成功的模型都是基于CNN的。CNN相较于传统的图像处理算法的优点之一在于，避免了对图像复杂的前期预处理过程（提取人工特征等），可以直接输入原始图像。">
+<meta name="keywords" content="CNN,神经网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LwIP-UDP">
-<meta property="og:url" content="http://weldonwangwang.github.io/2018/01/11/LwIP-UDP/index.html">
+<meta property="og:title" content="CNN Notes-1">
+<meta property="og:url" content="http://weldonwangwang.github.io/2018/03/02/CNN-Notes-1/index.html">
 <meta property="og:site_name" content="WeldonWangwang">
-<meta property="og:description" content="UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。">
+<meta property="og:description" content="卷积神经网络(Convolutional Neural Network, CNN)是深度学习技术中极具代表的网络结构之一，在图像处理领域取得了很大的成功，在国际标准的ImageNet数据集上，许多成功的模型都是基于CNN的。CNN相较于传统的图像处理算法的优点之一在于，避免了对图像复杂的前期预处理过程（提取人工特征等），可以直接输入原始图像。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-11T12:40:07.890Z">
+<meta property="og:image" content="http://weldonwangwang.github.io/2018/03/02/CNN-Notes-1/pictures/001.jpg">
+<meta property="og:image" content="http://weldonwangwang.github.io/2018/03/02/CNN-Notes-1/pictures/002.jpg">
+<meta property="og:image" content="http://weldonwangwang.github.io/2018/03/02/CNN-Notes-1/pictures/003.png">
+<meta property="og:updated_time" content="2018-03-02T11:16:01.772Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LwIP-UDP">
-<meta name="twitter:description" content="UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。">
+<meta name="twitter:title" content="CNN Notes-1">
+<meta name="twitter:description" content="卷积神经网络(Convolutional Neural Network, CNN)是深度学习技术中极具代表的网络结构之一，在图像处理领域取得了很大的成功，在国际标准的ImageNet数据集上，许多成功的模型都是基于CNN的。CNN相较于传统的图像处理算法的优点之一在于，避免了对图像复杂的前期预处理过程（提取人工特征等），可以直接输入原始图像。">
+<meta name="twitter:image" content="http://weldonwangwang.github.io/2018/03/02/CNN-Notes-1/pictures/001.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>LwIP-UDP | WeldonWangwang</title>
+<title>CNN Notes-1 | WeldonWangwang</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -262,11 +266,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-LwIP-UDP" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-CNN-Notes-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/01/11/LwIP-UDP/" class="article-date">
-      <time datetime="2018-01-11T12:37:13.000Z" itemprop="datePublished">2018-01-11</time>
+      <a href="/2018/03/02/CNN-Notes-1/" class="article-date">
+      <time datetime="2018-03-02T11:11:49.000Z" itemprop="datePublished">2018-03-02</time>
 </a>
 
 
@@ -281,7 +285,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      LwIP-UDP
+      CNN Notes-1
     </h1>
   
 
@@ -292,7 +296,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LwIP/">LwIP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UDP/">UDP</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/神经网络/">神经网络</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -302,39 +306,43 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。<br><a id="more"></a></p>
-<h1 id="LwIP-UDP"><a href="#LwIP-UDP" class="headerlink" title="LwIP UDP"></a>LwIP UDP</h1><p>UDP 协议不是面向连接的协议，直接把数据发送到链路层，至于能不能到达目的 IP 和端口，它不关注。  </p>
-<p>常见的 UDP 编程模型：  </p>
-<p><strong>UDP编程的服务器端一般步骤是：</strong>  </p>
-<ol>
-<li>创建一个socket，用函数socket()；  </li>
-<li>设置socket属性，用函数setsockopt();* 可选  </li>
-<li>绑定IP地址、端口等信息到socket上，用函数bind();  </li>
-<li>循环接收数据，用函数recvfrom();  </li>
-<li>关闭网络连接；</li>
-</ol>
-<p><strong>UDP编程的客户端一般步骤是：</strong>  </p>
-<ol>
-<li>创建一个socket，用函数socket()；  </li>
-<li>设置socket属性，用函数setsockopt();* 可选  </li>
-<li>绑定IP地址、端口等信息到socket上，用函数bind();* 可选 </li>
-<li>设置对方的IP地址和端口等属性;  </li>
-<li>发送数据，用函数sendto();  </li>
-<li>关闭网络连接；   </li>
-</ol>
-<p>标准的udp客户端开了套接口后，一般使用sendto和recvfrom函数来发数据，最近看到ntpclient的代码里面是使用send函数直接法的，就分析了一下，原来udp发送数据有两种方法供大家选用的，顺便把udp的connect用法也就解释清楚了。  </p>
-<p>建立客户端时如果不调用bind，则客户端在向外发包时，会由系统自己决定使用的接口的源端口，而调用bind则可以指定相应的参数。</p>
-<p>方法一：   </p>
-<pre><code>socket-----&gt;sendto()或recvfrom() 
-</code></pre><p>方法二：   </p>
-<pre><code>socket-----&gt;connect()-----&gt;send()或recv()
-</code></pre><p>首先从这里看出udp中也是可以使用connect的，但是这两种方法到底有什么区别呢？首先把这四个发送函数的定义列出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int send(int s, const void *msg, size_t len, int flags); </div><div class="line">int sendto(int s, const void *msg, size_t len, int flags, </div><div class="line">const struct sockaddr *to, socklen_t tolen);</div><div class="line"></div><div class="line">int recv(int s, void *buf, size_t len, int flags);</div><div class="line">int  recvfrom(int  s, void *buf, size_t len, int flags, </div><div class="line">struct sockaddr *from,  socklen_t *fromlen);</div></pre></td></tr></table></figure></p>
-<p>从他们的定义可以看出，sendto和recvfrom在收发时指定地址，而send和recv则没有，那么他们的地址是在那里指定的呢，答案就在于connect.  </p>
-<pre><code>int  connect(int  sockfd,  const  struct sockaddr *serv_addr, socklen_t
-addrlen);  
-</code></pre><p>在udp编程中，如果你只往一个地址发送，那么你可以使用send和recv，在使用它们之前用connect把它们的目的地址指定一下就可以了。  </p>
-<p>connect函数在udp中就是这个作用，用它来检测udp端口的是否开放是没有用的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">svr_addr.sin_family = AF_INET;</div><div class="line">svr_addr.sin_port = htons(PORT);</div><div class="line">svr_addr.sin_addr.s_addr = inet_addr(&quot;192.168.1.166&quot;);</div><div class="line">connect(sd, (struct sockaddr* )&amp;svr_addr, addrlen);</div></pre></td></tr></table></figure></p>
+        <p>卷积神经网络(Convolutional Neural Network, CNN)是深度学习技术中极具代表的网络结构之一，在图像处理领域取得了很大的成功，在国际标准的ImageNet数据集上，许多成功的模型都是基于CNN的。CNN相较于传统的图像处理算法的优点之一在于，避免了对图像复杂的前期预处理过程（提取人工特征等），可以直接输入原始图像。<br><a id="more"></a><br>CNN是部分连接网络，其最底层是特征提取层（卷积层），接着是池化层（Pooling），然后可以继续增加卷积、池化或全连接层。用于模式分类的CNN，通常在最后层使用softmax.</p>
+<p>一般情况下，CNN的结构形式是：输入层–&gt; Conv层 –&gt; Pooling层 –&gt; (重复Conv、Pooling层) … –&gt; FC(Full-connected)层 –&gt; 输出结果。通常输入层大小一般为2的整数倍，如32,64,96,224,384等。通常卷积层使用较小的filter，如3<em>3，最大也就5</em>5。Pooling层用于对卷积结果进行降低维度，例如选择2<em>2的区域对卷积层进行降低维度，则选择2</em>2区域的最大值作为输出，这样卷积层的维度就降为之前一半。</p>
+<p>优点：  </p>
+<ul>
+<li>局部连接</li>
+<li>权值共享</li>
+</ul>
+<h3 id="局部连接与权值共享"><a href="#局部连接与权值共享" class="headerlink" title="局部连接与权值共享"></a>局部连接与权值共享</h3><p>下图是一个很经典的图示，左边是全连接，右边是局部连接。  </p>
+<p><img src="pictures/001.jpg" width="500" align="center"> </p>
+<p>对于一个1000 × 1000的输入图像而言，如果下一个隐藏层的神经元数目为10^6个，采用全连接则有1000 × 1000 × 10^6 = 10^12个权值参数，如此数目巨大的参数几乎难以训练；而采用局部连接，隐藏层的每个神经元仅与图像中10 × 10的局部图像相连接，那么此时的权值参数数量为10 × 10 × 10^6 = 10^8，将直接减少4个数量级。</p>
+<p>尽管减少了几个数量级，但参数数量依然较多。能不能再进一步减少呢？能！方法就是权值共享。具体做法是，在局部连接中隐藏层的每一个神经元连接的是一个10 × 10的局部图像，因此有10 × 10个权值参数，将这10 × 10个权值参数共享给剩下的神经元，也就是说隐藏层中10^6个神经元的权值参数相同，那么此时不管隐藏层神经元的数目是多少，需要训练的参数就是这 10 × 10个权值参数（也就是卷积核(也称滤波器)的大小），如下图。  </p>
+<p><img src="pictures/002.jpg" width="500" align="center"> </p>
+<p><strong>可以局部连接的原因：</strong><br>图像的空间联系是局部的，就像人是通过一个局部的感受野去感受外界图像一样，每一个神经元都不需要对全局图像做感受，因为每个神经元只感受局部的图像区域，然后在更高层，将这些感受不同局部的神经元综合起来可得到全局信息。</p>
+<p><strong>可以进行权值共享的底层原因：</strong><br>但是图像的空间联系是局部的，就像人是通过一个局部的感受野去感受外界图像一样，每一个神经元都不需要对全局图像做感受，因为每个神经元只感受局部的图像区域，然后在更高层，将这些感受不同局部的神经元综合起来可得到全局信息。</p>
+<h3 id="Feature-Map"><a href="#Feature-Map" class="headerlink" title="Feature Map"></a>Feature Map</h3><p>feature map 由卷积核(Fliter) 和输入做卷积运算得到一个 Fliter 对应卷积后得到一个 feature map不同的Filter (不同的 weight, bias) ，卷积以后得到不同的 feature map，提取不同的特征（得到对应 specialized  neuro）  </p>
+<p>Fliter 的大小就是上文提到的10 × 10个权值参数。这也是需要在神经网络中不断训练的参数。  </p>
+<p>一个 Filter 即图像的一个特征，在实际中用户可以设置多个特征，即多个 Filter 来进行训练。  </p>
+<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p>下图是一个经典的CNN结构，称为<strong>LeNet-5网络。</strong>   </p>
+<p><img src="pictures/003.png" width="500" align="center"> </p>
+<p>我们先要明确一点：每个层有多个Feature Map，每个Feature Map通过一种卷积滤波器提取输入的一种特征，然后每个Feature Map有多个神经元。</p>
+<h4 id="1-C1-卷积层"><a href="#1-C1-卷积层" class="headerlink" title="1. C1 卷积层"></a>1. C1 卷积层</h4><p>C1层是一个卷积层（为什么是卷积？卷积运算一个重要的特点就是，通过卷积运算，可以使原信号特征增强，并且降低噪音），由6个特征图Feature Map构成。特征图中每个神经元与输入中5<em>5的邻域相连。特征图的大小为28</em>28，这样能防止输入的连接掉到边界之外（是为了BP反馈时的计算，不致梯度损失，个人见解）。C1有156个可训练参数（每个滤波器5<em>5=25个unit参数和一个bias参数，一共6个滤波器，共(5</em>5+1)<em>6=156个参数），共156</em>(28*28)=122,304个连接。  </p>
+<pre><code>输入图片大小 W×W
+Filter大小 F×F
+步长 S
+padding的像素数 P
 
+卷积后输出的图片大小：N = (W − F + 2P )/S+1
+</code></pre><h4 id="2-S2-池化层（下采样层）"><a href="#2-S2-池化层（下采样层）" class="headerlink" title="2. S2 池化层（下采样层）"></a>2. S2 池化层（下采样层）</h4><p>池化是用来把卷积结果进行压缩，进一步减少全连接时的连接数。   </p>
+<p>通过卷积层获得了图像的特征之后，理论上我们可以直接使用这些特征训练分类器（如softmax），但是这样做将面临巨大的计算量的挑战，而且容易产生过拟合的现象。为了进一步降低网络训练参数及模型的过拟合程度，我们对卷积层进行池化/采样(Pooling)处理。池化/采样的方式通常有以下两种：</p>
+<pre><code>Max-Pooling: 选择Pooling窗口中的最大值作为采样值；
+Mean-Pooling: 将Pooling窗口中的所有值相加取平均，以平均值作为采样值；
+</code></pre><h4 id="3-C3-卷积层"><a href="#3-C3-卷积层" class="headerlink" title="3. C3 卷积层"></a>3. C3 卷积层</h4><p>这一层我们选择卷积核的大小依旧为5<em>5，据此我们可以得到新的图片大小为14-5+1=10，然后我们希望可以得到16张特征图。<br>我们用5</em>5的卷积核去卷积每一张输入的特征图，当然每张特征图的卷积核参数是不一样的，也就是不共享，因此我们就相当于需要6<em>(5</em>5)个参数。对每一张输入特征图进行卷积后，我们得到6张10<em>10，新图片，这个时候，我们把这6张图片相加在一起，然后加一个偏置项b，然后用激活函数进行映射，就可以得到一张10</em>10的输出特征图了。</p>
+<p>而我们希望得到16张10<em>10的输出特征图，因此我们就需要卷积参数个数为16</em>(6<em>(5</em>5))=16<em>6</em>(5*5)个参数。总之，C3层每个图片是通过S2图片进行卷积后，然后相加，并且加上偏置b,最后在进行激活函数映射得到的结果。</p>
+<h4 id="4-S4-池化层"><a href="#4-S4-池化层" class="headerlink" title="4. S4 池化层"></a>4. S4 池化层</h4><p>对C3的16张10<em>10的图片进行最大池化，池化块的大小为2</em>2。因此最后S4层为16张大小为5<em>5的图片。至此我们的神经元个数已经减少为：16</em>5*5=400。  </p>
+<h4 id="5-C5-卷积层"><a href="#5-C5-卷积层" class="headerlink" title="5. C5 卷积层"></a>5. C5 卷积层</h4><p>我们继续用5*5的卷积核进行卷积，然后我们希望得到120个特征图。这样C5层图片的大小为5-5+1=1，也就是相当于1个神经元，120个特征图，因此最后只剩下120个神经元了。这个时候，神经元的个数已经够少的了，后面我们就可以直接利用全连接神经网络，进行这120个神经元的后续处理。  </p>
+<h4 id="6-F6-层"><a href="#6-F6-层" class="headerlink" title="6. F6 层"></a>6. F6 层</h4><p>F6层有84个单元（之所以选这个数字的原因来自于输出层的设计），与C5层全相连。有10164个可训练参数。如同经典神经网络，F6层计算输入向量和权重向量之间的点积，再加上一个偏置。然后将其传递给sigmoid函数产生单元i的一个状态。  </p>
+<h4 id="7-OUTPUT-层"><a href="#7-OUTPUT-层" class="headerlink" title="7. OUTPUT 层"></a>7. OUTPUT 层</h4>
       
     </div>
     
@@ -342,13 +350,13 @@ addrlen);
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/01/11/LwIP-UDP/">LwIP-UDP</a></p>
+        <p><span>本文标题:</span><a href="/2018/03/02/CNN-Notes-1/">CNN Notes-1</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Wang Wangwang</a></p>
-        <p><span>发布时间:</span>2018-01-11, 20:37:13</p>
-        <p><span>最后更新:</span>2018-01-11, 20:40:07</p>
+        <p><span>发布时间:</span>2018-03-02, 19:11:49</p>
+        <p><span>最后更新:</span>2018-03-02, 19:16:01</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/01/11/LwIP-UDP/" title="LwIP-UDP">http://weldonwangwang.github.io/2018/01/11/LwIP-UDP/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://weldonwangwang.github.io/2018/01/11/LwIP-UDP/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/02/CNN-Notes-1/" title="CNN Notes-1">http://weldonwangwang.github.io/2018/03/02/CNN-Notes-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://weldonwangwang.github.io/2018/03/02/CNN-Notes-1/　　作者: Wang Wangwang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -360,16 +368,10 @@ addrlen);
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/01/11/网络-本地字节序转换及大小端的概念/">
-                    网络 &lt;---&gt; 本地字节序转换及大小端的概念
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/01/11/LwIP-select/">
-                    LwIP-select
+                <a href="/2018/02/13/字符串常用基本操作/">
+                    字符串常用基本操作
                 </a>
             </div>
         
@@ -381,7 +383,7 @@ addrlen);
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LwIP-UDP"><span class="toc-number">1.</span> <span class="toc-text">LwIP UDP</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#局部连接与权值共享"><span class="toc-number">1.</span> <span class="toc-text">局部连接与权值共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feature-Map"><span class="toc-number">2.</span> <span class="toc-text">Feature Map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络结构"><span class="toc-number">3.</span> <span class="toc-text">网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-C1-卷积层"><span class="toc-number">3.1.</span> <span class="toc-text">1. C1 卷积层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-S2-池化层（下采样层）"><span class="toc-number">3.2.</span> <span class="toc-text">2. S2 池化层（下采样层）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-C3-卷积层"><span class="toc-number">3.3.</span> <span class="toc-text">3. C3 卷积层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-S4-池化层"><span class="toc-number">3.4.</span> <span class="toc-text">4. S4 池化层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-C5-卷积层"><span class="toc-number">3.5.</span> <span class="toc-text">5. C5 卷积层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-F6-层"><span class="toc-number">3.6.</span> <span class="toc-text">6. F6 层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-OUTPUT-层"><span class="toc-number">3.7.</span> <span class="toc-text">7. OUTPUT 层</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -417,7 +419,7 @@ addrlen);
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"LwIP-UDP　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"CNN Notes-1　| WeldonWangwang　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -437,15 +439,13 @@ addrlen);
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/01/11/网络-本地字节序转换及大小端的概念/" title="上一篇: 网络 &lt;---&gt; 本地字节序转换及大小端的概念">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/01/11/LwIP-select/" title="下一篇: LwIP-select">
+            <a href="/2018/02/13/字符串常用基本操作/" title="下一篇: 字符串常用基本操作">
                 <i class="fa fa-angle-right"></i>
             </a>
         
